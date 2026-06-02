@@ -1,12 +1,14 @@
 import Calendar from '@/components/calendar/Calendar';
+import FilterBar from '@/components/calendar/FilterBar';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white">
-      <div className="max-w-6xl mx-auto py-8 px-4">
-        <h1 className="text-2xl font-bold mb-6">엑소더스Ent 스케줄</h1>
+    <div className="min-h-screen bg-gray-50">
+      <div className="mx-auto max-w-6xl px-4 py-8">
+        <h1 className="mb-6 text-2xl font-bold text-gray-900">엑소더스Ent 스케줄</h1>
+        <FilterBar />
         <Calendar />
       </div>
-    </main>
+    </div>
   );
 }

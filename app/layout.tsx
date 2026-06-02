@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import MSWProvider from '@/components/MSWProvider';
 import Navbar from '@/components/common/Navbar';
+import ScheduleModal from '@/components/schedule/ScheduleModal';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,6 +34,7 @@ export default function RootLayout({
         <MSWProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
+          <ScheduleModal />
         </MSWProvider>
       </body>
     </html>

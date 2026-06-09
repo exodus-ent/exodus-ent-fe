@@ -7,7 +7,7 @@ export const handlers = [
       {
         id: '1',
         title: '아이브 2026 월드투어 서울',
-        date: '2026-05-15',
+        date: '2026-06-15',
         time: '19:00',
         location: 'KSPO DOME, 서울',
         category: '콘서트',
@@ -16,7 +16,7 @@ export const handlers = [
       {
         id: '2',
         title: 'BTS 팬미팅 2026',
-        date: '2026-05-22',
+        date: '2026-06-22',
         time: '18:00',
         location: '올림픽공원, 서울',
         category: '팬미팅',
@@ -25,11 +25,20 @@ export const handlers = [
       {
         id: '3',
         title: '뉴진스 팬싸인회',
-        date: '2026-05-10',
+        date: '2026-06-28',
         time: '14:00',
         location: '코엑스, 서울',
         category: '팬싸인회',
         idol: '뉴진스',
+      },
+      {
+        id: '4',
+        title: '세븐틴 새 앨범 발매',
+        date: '2026-06-09',
+        time: '12:00',
+        location: null,
+        category: '발매',
+        idol: '세븐틴',
       },
     ]);
   }),
@@ -39,7 +48,7 @@ export const handlers = [
     return HttpResponse.json({
       id: params.id,
       title: '아이브 2026 월드투어 서울',
-      date: '2026-05-15',
+      date: '2026-06-15',
       time: '19:00',
       location: 'KSPO DOME, 서울',
       category: '콘서트',
@@ -58,7 +67,7 @@ export const handlers = [
         nickname: '팬심_123',
         rating: 5,
         content: '정말 최고의 공연이었어요!',
-        createdAt: '2026-05-16',
+        createdAt: '2026-06-16',
       },
       {
         id: '2',
@@ -67,7 +76,7 @@ export const handlers = [
         nickname: '아이브러버',
         rating: 4,
         content: '무대 연출이 너무 예뻤어요.',
-        createdAt: '2026-05-16',
+        createdAt: '2026-06-16',
       },
     ]);
   }),

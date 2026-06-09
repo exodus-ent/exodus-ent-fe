@@ -1,0 +1,144 @@
+'use client';
+
+import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase';
+
+interface Schedule {
+  id: string;
+  title: string;
+  idol: string;
+  category: string;
+  date: string;
+  time?: string;
+  location?: string;
+}
+
+export default function AdminPage() {
+  const router = useRouter();
+  const [authChecked, setAuthChecked] = useState(false);
+  const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (!data.user) {
+        router.push('/login');
+        return;
+      }
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', data.user.id)
+        .maybeSingle();
+      if (!profile?.is_admin) {
+        router.push('/');
+        return;
+      }
+      setAuthChecked(true);
+    });
+  }, [router]);
+
+  const fetchSchedules = useCallback(async () => {
+    setLoading(true);
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('schedules')
+      .select('id, title, idol, category, date, time, location')
+      .order('date', { ascending: false });
+    setSchedules(data ?? []);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (authChecked) fetchSchedules();
+  }, [authChecked, fetchSchedules]);
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('스케줄을 삭제할까요?')) return;
+    const supabase = createClient();
+    await supabase.from('schedules').delete().eq('id', id);
+    setSchedules((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  if (!authChecked) {
+    return (
+      <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center">
+        <p className="text-sm text-gray-400">로딩 중...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="mx-auto max-w-5xl px-4 py-8">
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-gray-900">스케줄 관리</h1>
+          <Link
+            href="/admin/schedule/new"
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+          >
+            + 스케줄 등록
+          </Link>
+        </div>
+
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          {loading ? (
+            <p className="p-6 text-center text-sm text-gray-400">불러오는 중...</p>
+          ) : schedules.length === 0 ? (
+            <p className="p-6 text-center text-sm text-gray-400">등록된 스케줄이 없어요.</p>
+          ) : (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-100 bg-gray-50 text-left text-xs font-medium text-gray-500">
+                  <th className="px-5 py-3">제목</th>
+                  <th className="px-5 py-3">아이돌</th>
+                  <th className="px-5 py-3">카테고리</th>
+                  <th className="px-5 py-3">날짜</th>
+                  <th className="px-5 py-3">장소</th>
+                  <th className="px-5 py-3 text-right">관리</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
+                {schedules.map((s) => (
+                  <tr key={s.id} className="hover:bg-gray-50/50">
+                    <td className="px-5 py-3 font-medium text-gray-900">{s.title}</td>
+                    <td className="px-5 py-3 text-gray-600">{s.idol}</td>
+                    <td className="px-5 py-3">
+                      <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                        {s.category}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3 text-gray-600">
+                      {s.date}
+                      {s.time && <span className="ml-1 text-gray-400">{s.time}</span>}
+                    </td>
+                    <td className="px-5 py-3 text-gray-500">{s.location ?? '-'}</td>
+                    <td className="px-5 py-3">
+                      <div className="flex justify-end gap-2">
+                        <Link
+                          href={`/admin/schedule/${s.id}/edit`}
+                          className="rounded-md border border-gray-200 px-3 py-1 text-xs text-gray-600 transition-colors hover:bg-gray-50"
+                        >
+                          수정
+                        </Link>
+                        <button
+                          onClick={() => handleDelete(s.id)}
+                          className="rounded-md border border-red-100 px-3 py-1 text-xs text-red-500 transition-colors hover:bg-red-50"
+                        >
+                          삭제
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

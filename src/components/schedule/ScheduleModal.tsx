@@ -1,8 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useScheduleStore } from '@/store/useScheduleStore';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useBookmark } from '@/hooks/useBookmark';
+import ReviewList from '@/components/review/ReviewList';
 
 const CATEGORY_COLOR: Record<string, string> = {
   방송: 'bg-blue-100 text-blue-700',
@@ -15,7 +17,9 @@ export default function ScheduleModal() {
   const { selectedSchedule, isModalOpen, setIsModalOpen, setSelectedSchedule } =
     useScheduleStore();
   const { user } = useAuthStore();
-  const [bookmarked, setBookmarked] = useState(false);
+  const { bookmarked, toggle: toggleBookmark } = useBookmark(
+    isModalOpen ? (selectedSchedule?.id ?? null) : null,
+  );
   const backdropRef = useRef<HTMLDivElement>(null);
 
   const close = () => {
@@ -25,20 +29,19 @@ export default function ScheduleModal() {
 
   useEffect(() => {
     if (!isModalOpen) return;
-    setBookmarked(false);
-
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalOpen]);
 
-  // 스크롤 잠금
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isModalOpen]);
 
   if (!isModalOpen || !selectedSchedule) return null;
@@ -47,15 +50,8 @@ export default function ScheduleModal() {
     if (e.target === backdropRef.current) close();
   };
 
-  const dateTime = [
-    selectedSchedule.date,
-    selectedSchedule.time,
-  ]
-    .filter(Boolean)
-    .join(' ');
-
-  const colorClass =
-    CATEGORY_COLOR[selectedSchedule.category] ?? 'bg-gray-100 text-gray-700';
+  const dateTime = [selectedSchedule.date, selectedSchedule.time].filter(Boolean).join(' ');
+  const colorClass = CATEGORY_COLOR[selectedSchedule.category] ?? 'bg-gray-100 text-gray-700';
 
   return (
     <div
@@ -63,59 +59,74 @@ export default function ScheduleModal() {
       onClick={handleBackdropClick}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
     >
-      <div className="relative w-full max-w-md rounded-2xl bg-white shadow-xl">
+      <div className="relative flex max-h-[90vh] w-full max-w-lg flex-col rounded-2xl bg-white shadow-xl">
         {/* 헤더 */}
-        <div className="flex items-start justify-between border-b border-gray-100 px-6 py-5">
+        <div className="flex shrink-0 items-start justify-between border-b border-gray-100 px-6 py-5">
           <div className="flex-1 pr-4">
-            <span className={`mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${colorClass}`}>
+            <span
+              className={`mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${colorClass}`}
+            >
               {selectedSchedule.category}
             </span>
-            <h2 className="text-lg font-bold text-gray-900 leading-snug">
+            <h2 className="text-lg font-bold leading-snug text-gray-900">
               {selectedSchedule.title}
             </h2>
-            <p className="mt-0.5 text-sm text-indigo-600 font-medium">{selectedSchedule.idol}</p>
+            <p className="mt-0.5 text-sm font-medium text-indigo-600">{selectedSchedule.idol}</p>
           </div>
           <button
             onClick={close}
             className="shrink-0 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
             aria-label="닫기"
           >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
-        {/* 본문 */}
-        <div className="space-y-3 px-6 py-5">
-          <InfoRow icon="📅" label="일시" value={dateTime || '-'} />
-          <InfoRow icon="📍" label="장소" value={selectedSchedule.location ?? '-'} />
-          {selectedSchedule.description && (
-            <InfoRow icon="📝" label="설명" value={selectedSchedule.description} />
-          )}
-          {selectedSchedule.detailUrl && (
-            <div className="flex items-start gap-3">
-              <span className="text-base">🔗</span>
-              <div>
-                <p className="text-xs text-gray-400 mb-0.5">링크</p>
-                <a
-                  href={selectedSchedule.detailUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-indigo-600 underline hover:text-indigo-800"
-                >
-                  자세히 보기
-                </a>
+        {/* 본문 (스크롤) */}
+        <div className="flex-1 overflow-y-auto px-6 py-5">
+          <div className="space-y-3">
+            <InfoRow icon="📅" label="일시" value={dateTime || '-'} />
+            <InfoRow icon="📍" label="장소" value={selectedSchedule.location ?? '-'} />
+            {selectedSchedule.description && (
+              <InfoRow icon="📝" label="설명" value={selectedSchedule.description} />
+            )}
+            {selectedSchedule.detailUrl && (
+              <div className="flex items-start gap-3">
+                <span className="text-base">🔗</span>
+                <div>
+                  <p className="mb-0.5 text-xs text-gray-400">링크</p>
+                  <a
+                    href={selectedSchedule.detailUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-indigo-600 underline hover:text-indigo-800"
+                  >
+                    자세히 보기
+                  </a>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+
+          {/* 후기 섹션 */}
+          <div className="mt-6 border-t border-gray-100 pt-6">
+            <ReviewList scheduleId={selectedSchedule.id} />
+          </div>
         </div>
 
         {/* 푸터 */}
-        <div className="flex items-center justify-between border-t border-gray-100 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-t border-gray-100 px-6 py-4">
           {user ? (
             <button
-              onClick={() => setBookmarked((prev) => !prev)}
+              onClick={toggleBookmark}
               className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 bookmarked
                   ? 'bg-indigo-600 text-white'
@@ -145,7 +156,7 @@ function InfoRow({ icon, label, value }: { icon: string; label: string; value: s
     <div className="flex items-start gap-3">
       <span className="text-base">{icon}</span>
       <div>
-        <p className="text-xs text-gray-400 mb-0.5">{label}</p>
+        <p className="mb-0.5 text-xs text-gray-400">{label}</p>
         <p className="text-sm text-gray-800">{value}</p>
       </div>
     </div>

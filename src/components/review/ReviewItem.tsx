@@ -19,11 +19,12 @@ export interface Review {
 interface Props {
   review: Review;
   currentUserId?: string;
+  isAdmin?: boolean;
   onEdit: (review: Review) => void;
   onDelete: (id: string) => void;
 }
 
-export default function ReviewItem({ review, currentUserId, onEdit, onDelete }: Props) {
+export default function ReviewItem({ review, currentUserId, isAdmin, onEdit, onDelete }: Props) {
   const isOwner = currentUserId === review.user_id;
 
   return (
@@ -66,14 +67,16 @@ export default function ReviewItem({ review, currentUserId, onEdit, onDelete }: 
         </div>
       )}
 
-      {isOwner && (
+      {(isOwner || isAdmin) && (
         <div className="mt-3 flex justify-end gap-3 border-t border-gray-50 pt-3">
-          <button
-            onClick={() => onEdit(review)}
-            className="text-xs font-medium text-indigo-600 hover:underline"
-          >
-            수정
-          </button>
+          {isOwner && !isAdmin && (
+            <button
+              onClick={() => onEdit(review)}
+              className="text-xs font-medium text-indigo-600 hover:underline"
+            >
+              수정
+            </button>
+          )}
           <button
             onClick={() => onDelete(review.id)}
             className="text-xs font-medium text-red-500 hover:underline"

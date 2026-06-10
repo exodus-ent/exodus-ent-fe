@@ -20,10 +20,25 @@ export default function LoginPage() {
     setLoading(true);
 
     const supabase = createClient();
-    const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error: authError } = await supabase.auth.signInWithPassword({
+      email: email.trim(),
+      password,
+    });
 
-    if (authError || !data.user) {
-      setError(authError?.message ?? '로그인에 실패했습니다.');
+    if (authError) {
+      if (authError.code === 'email_not_confirmed') {
+        setError('이메일 인증이 완료되지 않았습니다. 가입 시 받은 이메일에서 인증 링크를 클릭해주세요.');
+      } else if (authError.code === 'invalid_credentials') {
+        setError('이메일 또는 비밀번호가 올바르지 않습니다.');
+      } else {
+        setError(authError.message);
+      }
+      setLoading(false);
+      return;
+    }
+
+    if (!data.user) {
+      setError('로그인에 실패했습니다.');
       setLoading(false);
       return;
     }

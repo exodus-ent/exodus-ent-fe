@@ -94,6 +94,7 @@ export default function ReviewList({ scheduleId }: Props) {
                 key={review.id}
                 review={review}
                 currentUserId={user?.id}
+                isAdmin={user?.isAdmin ?? false}
                 onEdit={setEditingReview}
                 onDelete={handleDelete}
               />
@@ -102,15 +103,15 @@ export default function ReviewList({ scheduleId }: Props) {
         </div>
       )}
 
-      {user && !editingReview && (
+      {user && !user.isAdmin && !editingReview && (
         <div className="pt-2">
           <ReviewForm scheduleId={scheduleId} onSubmit={fetchReviews} />
         </div>
       )}
 
-      {!user && (
+      {(!user || user.isAdmin) && (
         <p className="py-2 text-center text-xs text-gray-400">
-          후기 작성은 로그인 후 이용하세요.
+          {user?.isAdmin ? '관리자는 후기를 작성할 수 없습니다.' : '후기 작성은 로그인 후 이용하세요.'}
         </p>
       )}
     </div>

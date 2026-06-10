@@ -36,7 +36,7 @@ export default function SignupPage() {
     const { data, error: authError } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { nickname } },
+      options: { data: { nickname, isAdmin: false } },
     });
 
     if (authError) {
@@ -164,6 +164,10 @@ export default function SignupPage() {
             <Link href="/login" className="font-semibold text-indigo-600 hover:underline">
               로그인
             </Link>
+          </p>
+
+          <p className="mt-3 text-center text-xs text-gray-400">
+            관리자 계정은 회원가입으로 생성할 수 없습니다.
           </p>
         </div>
       </div>

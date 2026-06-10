@@ -164,6 +164,7 @@ export default function ReviewsPage() {
                     <ReviewItem
                       review={review}
                       currentUserId={user?.id}
+                      isAdmin={user?.isAdmin ?? false}
                       onEdit={setEditingReview}
                       onDelete={handleDelete}
                     />

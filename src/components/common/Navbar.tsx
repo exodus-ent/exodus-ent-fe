@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
 
 const NAV_LINKS = [
-  { label: '스케줄', href: '/' },
+  { label: '아이돌', href: '/' },
+  { label: '스케줄', href: '/schedule' },
   { label: '후기', href: '/reviews' },
   { label: '마이페이지', href: '/mypage' },
 ];

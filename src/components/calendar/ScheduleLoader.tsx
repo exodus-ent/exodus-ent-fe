@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { createClient } from '@/lib/supabase';
 import { useScheduleStore } from '@/store/useScheduleStore';
 
 export default function ScheduleLoader() {
@@ -8,23 +9,28 @@ export default function ScheduleLoader() {
 
   useEffect(() => {
     setIsLoading(true);
-    // MSW(개발) 또는 실제 API(운영) 둘 다 처리
-    const load = () =>
-      fetch('/api/schedules')
-        .then((r) => r.json())
-        .then((data) => {
-          setSchedules(data);
-          setIsLoading(false);
-        })
-        .catch(() => setIsLoading(false));
-
-    // MSW service worker 등록 완료 후 fetch
-    if (process.env.NODE_ENV === 'development') {
-      // worker 등록까지 최대 1.5초 대기
-      const timer = setTimeout(load, 300);
-      return () => clearTimeout(timer);
-    }
-    load();
+    createClient()
+      .from('schedules')
+      .select('id, title, idol, category, date, time, location, description, thumbnail_url, detail_url')
+      .order('date')
+      .then(({ data }) => {
+        setSchedules(
+          (data ?? []).map((r) => ({
+            id: r.id,
+            title: r.title,
+            idol: r.idol,
+            category: r.category,
+            date: r.date,
+            time: r.time ?? undefined,
+            location: r.location ?? undefined,
+            description: r.description ?? undefined,
+            thumbnailUrl: r.thumbnail_url ?? undefined,
+            detailUrl: r.detail_url ?? undefined,
+          })),
+        );
+        setIsLoading(false);
+      })
+      .catch(() => setIsLoading(false));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

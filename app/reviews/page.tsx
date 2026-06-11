@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useScheduleStore } from '@/store/useScheduleStore';
@@ -26,6 +27,7 @@ interface ReviewWithSchedule extends Review {
 
 export default function ReviewsPage() {
   const { user } = useAuthStore();
+  const router = useRouter();
   const { setSelectedSchedule, setIsModalOpen } = useScheduleStore();
   const [reviews, setReviews] = useState<ReviewWithSchedule[]>([]);
   const [sort, setSort] = useState<SortKey>('latest');
@@ -89,20 +91,31 @@ export default function ReviewsPage() {
             <h1 className="text-2xl font-bold text-gray-900">후기</h1>
             <p className="mt-1 text-sm text-gray-500">팬들이 남긴 생생한 후기를 확인해보세요.</p>
           </div>
-          <div className="flex gap-1 rounded-lg bg-white border border-gray-200 p-1 shadow-sm">
-            {(['latest', 'rating'] as SortKey[]).map((key) => (
+          <div className="flex items-center gap-3">
+            {/* 후기 작성 버튼 */}
+            {!user?.isAdmin && (
               <button
-                key={key}
-                onClick={() => setSort(key)}
-                className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                  sort === key
-                    ? 'bg-[#CCFF00] text-black shadow-sm'
-                    : 'text-gray-500 hover:text-gray-700'
-                }`}
+                onClick={() => user ? router.push('/reviews/write') : router.push('/login')}
+                className="rounded-lg bg-[#CCFF00] px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-[#b3e600]"
               >
-                {key === 'latest' ? '최신순' : '별점순'}
+                + 후기 작성
               </button>
-            ))}
+            )}
+            <div className="flex gap-1 rounded-lg bg-white border border-gray-200 p-1 shadow-sm">
+              {(['latest', 'rating'] as SortKey[]).map((key) => (
+                <button
+                  key={key}
+                  onClick={() => setSort(key)}
+                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                    sort === key
+                      ? 'bg-[#CCFF00] text-black shadow-sm'
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  {key === 'latest' ? '최신순' : '별점순'}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -175,12 +188,6 @@ export default function ReviewsPage() {
           </div>
         )}
 
-        {/* 비로그인 안내 */}
-        {!user && !loading && (
-          <p className="mt-6 text-center text-xs text-gray-400">
-            후기 작성은 스케줄 상세 모달에서 로그인 후 이용하세요.
-          </p>
-        )}
       </div>
     </div>
   );

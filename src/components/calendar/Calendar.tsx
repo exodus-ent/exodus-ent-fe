@@ -19,7 +19,7 @@ export default function Calendar() {
 
   const events = schedules.map((schedule) => ({
     id: schedule.id,
-    title: `${schedule.idol} ${schedule.title}`,
+    title: schedule.title,
     date: schedule.date,
     backgroundColor: CATEGORY_COLOR[schedule.category] ?? '#6366f1',
     borderColor: 'transparent',

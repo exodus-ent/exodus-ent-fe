@@ -25,7 +25,8 @@ export default function EditSchedulePage() {
         .select('is_admin')
         .eq('id', data.user.id)
         .maybeSingle();
-      if (!profile?.is_admin) {
+      const isAdmin = profile?.is_admin === true || data.user.user_metadata?.isAdmin === true;
+      if (!isAdmin) {
         router.push('/');
         return;
       }

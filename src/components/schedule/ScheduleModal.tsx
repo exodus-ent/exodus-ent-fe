@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { useScheduleStore } from '@/store/useScheduleStore';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useBookmark } from '@/hooks/useBookmark';
+import { createClient } from '@/lib/supabase';
 import ReviewList from '@/components/review/ReviewList';
 
 const CATEGORY_COLOR: Record<string, string> = {
@@ -14,7 +16,7 @@ const CATEGORY_COLOR: Record<string, string> = {
 };
 
 export default function ScheduleModal() {
-  const { selectedSchedule, isModalOpen, setIsModalOpen, setSelectedSchedule } =
+  const { selectedSchedule, isModalOpen, setIsModalOpen, setSelectedSchedule, schedules, setSchedules } =
     useScheduleStore();
   const { user } = useAuthStore();
   const { bookmarked, toggle: toggleBookmark } = useBookmark(
@@ -25,6 +27,16 @@ export default function ScheduleModal() {
   const close = () => {
     setIsModalOpen(false);
     setSelectedSchedule(null);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedSchedule || !confirm('스케줄을 삭제할까요?')) return;
+    const supabase = createClient();
+    const { error } = await supabase.from('schedules').delete().eq('id', selectedSchedule.id);
+    if (!error) {
+      setSchedules(schedules.filter((s) => s.id !== selectedSchedule.id));
+      close();
+    }
   };
 
   useEffect(() => {
@@ -139,12 +151,31 @@ export default function ScheduleModal() {
           ) : (
             <p className="text-xs text-gray-400">북마크는 로그인 후 이용하세요.</p>
           )}
-          <button
-            onClick={close}
-            className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200"
-          >
-            닫기
-          </button>
+          <div className="flex items-center gap-2">
+            {user?.isAdmin && selectedSchedule && (
+              <>
+                <Link
+                  href={`/admin/schedule/${selectedSchedule.id}/edit`}
+                  onClick={close}
+                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50"
+                >
+                  수정
+                </Link>
+                <button
+                  onClick={handleDelete}
+                  className="rounded-lg border border-red-100 px-3 py-1.5 text-xs font-medium text-red-500 transition-colors hover:bg-red-50"
+                >
+                  삭제
+                </button>
+              </>
+            )}
+            <button
+              onClick={close}
+              className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200"
+            >
+              닫기
+            </button>
+          </div>
         </div>
       </div>
     </div>

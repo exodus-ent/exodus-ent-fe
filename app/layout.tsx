@@ -4,6 +4,7 @@ import './globals.css';
 import MSWProvider from '@/components/MSWProvider';
 import Navbar from '@/components/common/Navbar';
 import ScheduleModal from '@/components/schedule/ScheduleModal';
+import AuthInitializer from '@/components/common/AuthInitializer';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,6 +32,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <AuthInitializer />
         <MSWProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

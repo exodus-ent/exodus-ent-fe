@@ -54,7 +54,7 @@ export default function Navbar() {
             href="/"
             className="font-bebas text-2xl tracking-widest text-white transition-colors hover:text-[#CCFF00] md:absolute md:left-1/2 md:-translate-x-1/2"
           >
-            엑소더스<span className="text-[#CCFF00]">ENT</span>
+            EXODUS <span className="text-[#CCFF00]">ENT</span>
           </Link>
 
           {/* Right nav + auth */}

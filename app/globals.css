@@ -41,9 +41,17 @@ input, textarea, select {
 }
 
 .fc .fc-toolbar {
+  position: relative;
   padding: 1rem 1.25rem;
   background-color: #f9fafb;
   border-bottom: 1px solid #e5e7eb;
+}
+
+.fc .fc-toolbar-chunk:nth-child(2) {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
 }
 
 .fc .fc-toolbar-title {

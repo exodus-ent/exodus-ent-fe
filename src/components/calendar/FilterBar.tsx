@@ -1,19 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFilterStore } from '@/store/useFilterStore';
+import { createClient } from '@/lib/supabase';
 
 const CATEGORIES = ['전체', '방송', '콘서트', '팬싸인회', '발매'] as const;
-
-const IDOL_BASE = ['BTS', '아이브', '뉴진스', '세븐틴'];
-const IDOL_MORE = ['에스파', 'ENHYPEN', 'TXT', 'BLACKPINK', 'EXO', 'NCT'];
 
 export default function FilterBar() {
   const { selectedCategories, selectedIdols, setSelectedCategories, setSelectedIdols, resetFilters } =
     useFilterStore();
-  const [showMore, setShowMore] = useState(false);
+  const [idolList, setIdolList] = useState<string[]>([]);
 
-  const idolList = showMore ? [...IDOL_BASE, ...IDOL_MORE] : IDOL_BASE;
+  useEffect(() => {
+    createClient()
+      .from('idols')
+      .select('name')
+      .order('name')
+      .then(({ data }) => {
+        setIdolList(data?.map((r) => r.name) ?? []);
+      });
+  }, []);
 
   const toggleCategory = (cat: string) => {
     if (cat === '전체') {
@@ -59,28 +65,24 @@ export default function FilterBar() {
       </div>
 
       {/* 아이돌 */}
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="w-14 shrink-0 text-xs font-semibold text-gray-500">아이돌</span>
-        {idolList.map((idol) => (
-          <button
-            key={idol}
-            onClick={() => toggleIdol(idol)}
-            className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
-              selectedIdols.includes(idol)
-                ? 'bg-[#CCFF00] text-black'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
-          >
-            {idol}
-          </button>
-        ))}
-        <button
-          onClick={() => setShowMore((prev) => !prev)}
-          className="rounded-full border border-gray-300 px-3 py-1 text-sm text-gray-500 hover:bg-gray-50"
-        >
-          {showMore ? '접기 ▲' : '더보기 ▼'}
-        </button>
-      </div>
+      {idolList.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="w-14 shrink-0 text-xs font-semibold text-gray-500">아이돌</span>
+          {idolList.map((idol) => (
+            <button
+              key={idol}
+              onClick={() => toggleIdol(idol)}
+              className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+                selectedIdols.includes(idol)
+                  ? 'bg-[#CCFF00] text-black'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              {idol}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* 초기화 */}
       {hasActiveFilters && (

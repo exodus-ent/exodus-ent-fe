@@ -45,12 +45,18 @@ function LoginForm() {
       return;
     }
 
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', data.user.id)
+      .maybeSingle();
+
     setUser({
       id: data.user.id,
       email: data.user.email ?? '',
       nickname: data.user.user_metadata?.nickname ?? data.user.email?.split('@')[0] ?? '사용자',
       avatarUrl: data.user.user_metadata?.avatar_url,
-      isAdmin: data.user.user_metadata?.isAdmin ?? false,
+      isAdmin: profile?.is_admin === true || data.user.user_metadata?.isAdmin === true,
     });
     router.push(redirectTo);
   };

@@ -1,12 +1,12 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useScheduleStore } from '@/store/useScheduleStore';
 import ReviewItem, { type Review } from '@/components/review/ReviewItem';
 import ReviewForm from '@/components/review/ReviewForm';
+import LoginRequired from '@/components/common/LoginRequired';
 
 type Tab = 'reviews' | 'bookmarks' | 'profile';
 
@@ -34,11 +34,11 @@ interface Profile {
 }
 
 export default function MypagePage() {
-  const router = useRouter();
   const { user, setUser } = useAuthStore();
   const { setSelectedSchedule, setIsModalOpen } = useScheduleStore();
   const [tab, setTab] = useState<Tab>('reviews');
   const [authChecked, setAuthChecked] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // ── 내 후기 ──
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -58,17 +58,13 @@ export default function MypagePage() {
   const [profileMsg, setProfileMsg] = useState('');
   const avatarRef = useRef<HTMLInputElement>(null);
 
-  // 인증 확인 (미들웨어 통과 후 2차 방어)
+  // 인증 확인
   useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => {
-      if (!data.user) {
-        router.push('/login?redirect=/mypage');
-      } else {
-        setAuthChecked(true);
-      }
+    createClient().auth.getUser().then(({ data }) => {
+      setLoggedIn(!!data.user);
+      setAuthChecked(true);
     });
-  }, [router]);
+  }, []);
 
   // 내 후기 로드
   const fetchReviews = useCallback(async () => {
@@ -197,6 +193,10 @@ export default function MypagePage() {
         <p className="text-sm text-gray-400">로딩 중...</p>
       </div>
     );
+  }
+
+  if (!loggedIn) {
+    return <LoginRequired />;
   }
 
   const TABS: { key: Tab; label: string }[] = [

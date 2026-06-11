@@ -60,12 +60,6 @@ export default function Calendar() {
         noEventsText=""
       />
 
-      {/* 빈 상태 */}
-      {!isLoading && schedules.length === 0 && (
-        <div className="absolute inset-x-0 top-32 flex flex-col items-center gap-2 py-8">
-          <p className="text-sm text-gray-400">이번 달 등록된 스케줄이 없어요.</p>
-        </div>
-      )}
     </div>
   );
 }

@@ -58,12 +58,12 @@ export default function MypagePage() {
   const [profileMsg, setProfileMsg] = useState('');
   const avatarRef = useRef<HTMLInputElement>(null);
 
-  // 인증 확인
+  // 인증 확인 (미들웨어 통과 후 2차 방어)
   useEffect(() => {
     const supabase = createClient();
     supabase.auth.getUser().then(({ data }) => {
       if (!data.user) {
-        router.push('/login');
+        router.push('/login?redirect=/mypage');
       } else {
         setAuthChecked(true);
       }

@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
 import { useAuthStore } from '@/store/useAuthStore';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('redirect') ?? '/';
   const { setUser } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,14 +52,14 @@ export default function LoginPage() {
       avatarUrl: data.user.user_metadata?.avatar_url,
       isAdmin: data.user.user_metadata?.isAdmin ?? false,
     });
-    router.push('/');
+    router.push(redirectTo);
   };
 
   const handleGoogleLogin = async () => {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/` },
+      options: { redirectTo: `${window.location.origin}${redirectTo}` },
     });
   };
 
@@ -149,5 +151,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -26,7 +26,7 @@ interface ReviewWithSchedule extends Review {
 }
 
 export default function ReviewsPage() {
-  const { user } = useAuthStore();
+  const { user, isLoading: authLoading } = useAuthStore();
   const router = useRouter();
   const { setSelectedSchedule, setIsModalOpen } = useScheduleStore();
   const [reviews, setReviews] = useState<ReviewWithSchedule[]>([]);
@@ -92,8 +92,8 @@ export default function ReviewsPage() {
             <p className="mt-1 text-sm text-gray-500">팬들이 남긴 생생한 후기를 확인해보세요.</p>
           </div>
           <div className="flex items-center gap-3">
-            {/* 후기 작성 버튼 */}
-            {!user?.isAdmin && (
+            {/* 후기 작성 버튼: 비로그인 또는 일반 유저만 표시, 관리자 숨김 */}
+            {!authLoading && !user?.isAdmin && (
               <button
                 onClick={() => user ? router.push('/reviews/write') : router.push('/login')}
                 className="rounded-lg bg-[#CCFF00] px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-[#b3e600]"

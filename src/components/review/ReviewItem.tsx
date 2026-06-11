@@ -24,8 +24,10 @@ interface Props {
   onDelete: (id: string) => void;
 }
 
-export default function ReviewItem({ review, currentUserId, isAdmin, onEdit, onDelete }: Props) {
-  const isOwner = currentUserId === review.user_id;
+export default function ReviewItem({ review, currentUserId, isAdmin = false, onEdit, onDelete }: Props) {
+  const isOwner = !!currentUserId && currentUserId === review.user_id;
+  const canDelete = isAdmin || isOwner;
+  const canEdit = isOwner && !isAdmin;
 
   return (
     <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
@@ -67,9 +69,9 @@ export default function ReviewItem({ review, currentUserId, isAdmin, onEdit, onD
         </div>
       )}
 
-      {(isOwner || isAdmin) && (
+      {canDelete && (
         <div className="mt-3 flex justify-end gap-3 border-t border-gray-50 pt-3">
-          {isOwner && !isAdmin && (
+          {canEdit && (
             <button
               onClick={() => onEdit(review)}
               className="text-xs font-medium text-[#CCFF00] hover:underline"

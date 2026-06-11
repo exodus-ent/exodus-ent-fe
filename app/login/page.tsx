@@ -75,7 +75,7 @@ function LoginForm() {
         <div className="rounded-2xl bg-white px-8 py-10 shadow-sm border border-gray-200">
           <h1 className="mb-1 text-center text-2xl font-bold text-gray-900">로그인</h1>
           <p className="mb-8 text-center text-sm text-gray-500">
-            엑소더스<span className="font-semibold text-indigo-600">Ent</span>에 오신 걸 환영해요
+            엑소더스<span className="font-semibold text-[#CCFF00]">Ent</span>에 오신 걸 환영해요
           </p>
 
           {/* 구글 로그인 */}
@@ -120,7 +120,7 @@ function LoginForm() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@example.com"
                 required
-                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
               />
             </div>
             <div>
@@ -131,7 +131,7 @@ function LoginForm() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
               />
             </div>
 
@@ -142,7 +142,7 @@ function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-indigo-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
+              className="w-full rounded-xl bg-[#CCFF00] py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600] disabled:opacity-60"
             >
               {loading ? '로그인 중...' : '로그인'}
             </button>
@@ -150,7 +150,7 @@ function LoginForm() {
 
           <p className="mt-6 text-center text-sm text-gray-500">
             계정이 없으신가요?{' '}
-            <Link href="/signup" className="font-semibold text-indigo-600 hover:underline">
+            <Link href="/signup" className="font-semibold text-[#CCFF00] hover:underline">
               회원가입
             </Link>
           </p>

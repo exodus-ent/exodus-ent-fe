@@ -83,7 +83,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-indigo-100 bg-indigo-50/50 p-4"
+      className="rounded-xl border border-[#CCFF00]/20 bg-[#CCFF00]/10 p-4"
     >
       <p className="mb-3 text-sm font-semibold text-gray-800">
         {editingReview ? '후기 수정' : '후기 작성'}
@@ -116,7 +116,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
         placeholder="후기를 작성해주세요..."
         required
         rows={3}
-        className="w-full resize-none rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+        className="w-full resize-none rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
       />
 
       <div className="mt-2">
@@ -186,7 +186,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
+          className="rounded-lg bg-[#CCFF00] px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#b3e600] disabled:opacity-60"
         >
           {loading ? '저장 중...' : editingReview ? '수정 완료' : '등록'}
         </button>

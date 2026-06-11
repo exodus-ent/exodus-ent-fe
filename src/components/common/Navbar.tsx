@@ -5,12 +5,32 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
 
-const NAV_LINKS = [
-  { label: '아이돌', href: '/' },
-  { label: '스케줄', href: '/schedule' },
-  { label: '후기', href: '/reviews' },
-  { label: '마이페이지', href: '/mypage' },
+const LEFT_LINKS = [
+  { label: 'ARTISTS', href: '/artists' },
+  { label: 'SCHEDULE', href: '/schedule' },
 ];
+
+const RIGHT_LINKS = [
+  { label: 'REVIEW', href: '/reviews' },
+  { label: 'MYPAGE', href: '/mypage' },
+];
+
+const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
+
+function NavLink({ href, label, pathname, onClick }: { href: string; label: string; pathname: string; onClick?: () => void }) {
+  const active = pathname === href || (href !== '/' && pathname.startsWith(href));
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={`text-xs font-medium tracking-[0.15em] transition-colors hover:text-[#CCFF00] ${
+        active ? 'text-[#CCFF00]' : 'text-white/60'
+      }`}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -18,100 +38,105 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-black">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Logo */}
-        <Link href="/" className="text-lg font-bold tracking-tight text-white">
-          엑소더스<span className="text-red-500">Ent</span>
-        </Link>
+    <header className="sticky top-0 z-50 w-full bg-black border-b border-white/5">
+      <div className="mx-auto h-16 max-w-7xl px-6 lg:px-8">
+        {/* Desktop layout: left nav | center logo | right nav + auth */}
+        <div className="relative flex h-full items-center justify-between md:justify-start">
+          {/* Left nav */}
+          <nav className="hidden items-center gap-8 md:flex">
+            {LEFT_LINKS.map(({ label, href }) => (
+              <NavLink key={href} href={href} label={label} pathname={pathname} />
+            ))}
+          </nav>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map(({ label, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`text-sm font-medium transition-colors hover:text-white ${
-                pathname === href ? 'text-white' : 'text-gray-400'
-              }`}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
+          {/* Center logo — absolute on desktop, static on mobile */}
+          <Link
+            href="/"
+            className="font-bebas text-2xl tracking-widest text-white transition-colors hover:text-[#CCFF00] md:absolute md:left-1/2 md:-translate-x-1/2"
+          >
+            엑소더스<span className="text-[#CCFF00]">ENT</span>
+          </Link>
 
-        {/* Desktop auth */}
-        <div className="hidden items-center gap-2 md:flex">
-          {user ? (
-            <>
-              <span className="text-sm text-gray-400">
-                <span className="font-semibold text-white">{user.nickname}</span>님
-              </span>
-              <button
-                onClick={logout}
-                className="rounded-md border border-gray-700 px-3 py-1.5 text-sm text-gray-400 transition-colors hover:border-gray-500 hover:text-white"
-              >
-                로그아웃
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/login"
-                className="rounded-md px-3 py-1.5 text-sm font-medium text-gray-400 transition-colors hover:text-white"
-              >
-                로그인
-              </Link>
-              <Link
-                href="/signup"
-                className="rounded-md bg-red-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-red-700"
-              >
-                회원가입
-              </Link>
-            </>
-          )}
+          {/* Right nav + auth */}
+          <div className="hidden flex-1 items-center justify-end gap-8 md:flex">
+            {RIGHT_LINKS.map(({ label, href }) => (
+              <NavLink key={href} href={href} label={label} pathname={pathname} />
+            ))}
+            <div className="ml-4 flex items-center gap-3 border-l border-white/10 pl-4">
+              {user ? (
+                <>
+                  <span className="text-xs text-white/50">
+                    <span className="font-medium text-white">{user.nickname}</span>
+                  </span>
+                  <button
+                    onClick={logout}
+                    className="text-xs tracking-[0.1em] text-white/40 transition-colors hover:text-white"
+                  >
+                    LOGOUT
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="text-xs tracking-[0.1em] text-white/50 transition-colors hover:text-white"
+                  >
+                    LOGIN
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="rounded-none border border-[#CCFF00] px-3 py-1.5 text-xs font-medium tracking-[0.1em] text-[#CCFF00] transition-colors hover:bg-[#CCFF00] hover:text-black"
+                  >
+                    JOIN
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="ml-auto flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label="메뉴 열기"
+          >
+            <span className={`block h-px w-6 bg-white transition-transform duration-200 ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
+            <span className={`block h-px w-6 bg-white transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
+            <span className={`block h-px w-6 bg-white transition-transform duration-200 ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
+          </button>
         </div>
-
-        {/* Mobile hamburger */}
-        <button
-          className="flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
-          onClick={() => setMenuOpen((prev) => !prev)}
-          aria-label="메뉴 열기"
-        >
-          <span className={`block h-0.5 w-5 bg-white transition-transform duration-200 ${menuOpen ? 'translate-y-2 rotate-45' : ''}`} />
-          <span className={`block h-0.5 w-5 bg-white transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
-          <span className={`block h-0.5 w-5 bg-white transition-transform duration-200 ${menuOpen ? '-translate-y-2 -rotate-45' : ''}`} />
-        </button>
       </div>
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="border-t border-gray-800 bg-black px-4 pb-4 md:hidden">
-          <nav className="flex flex-col gap-1 pt-2">
-            {NAV_LINKS.map(({ label, href }) => (
+        <div className="border-t border-white/5 bg-black px-6 pb-6 md:hidden">
+          <nav className="flex flex-col gap-4 pt-6">
+            {ALL_LINKS.map(({ label, href }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={() => setMenuOpen(false)}
-                className={`rounded-md px-3 py-2.5 text-sm font-medium transition-colors hover:bg-gray-900 ${
-                  pathname === href ? 'text-white' : 'text-gray-400'
+                className={`text-sm font-medium tracking-[0.15em] transition-colors hover:text-[#CCFF00] ${
+                  pathname === href || (href !== '/' && pathname.startsWith(href))
+                    ? 'text-[#CCFF00]'
+                    : 'text-white/60'
                 }`}
               >
                 {label}
               </Link>
             ))}
           </nav>
-          <div className="mt-3 flex flex-col gap-2 border-t border-gray-800 pt-3">
+          <div className="mt-6 flex flex-col gap-3 border-t border-white/5 pt-6">
             {user ? (
               <>
-                <span className="px-3 text-sm text-gray-400">
-                  <span className="font-semibold text-white">{user.nickname}</span>님
+                <span className="text-sm text-white/50">
+                  <span className="font-medium text-white">{user.nickname}</span>
                 </span>
                 <button
                   onClick={() => { logout(); setMenuOpen(false); }}
-                  className="rounded-md border border-gray-700 px-3 py-2 text-sm text-gray-400 hover:border-gray-500 hover:text-white"
+                  className="text-left text-sm tracking-[0.1em] text-white/40 hover:text-white"
                 >
-                  로그아웃
+                  LOGOUT
                 </button>
               </>
             ) : (
@@ -119,16 +144,16 @@ export default function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-md px-3 py-2 text-center text-sm font-medium text-gray-400 hover:text-white"
+                  className="text-sm tracking-[0.1em] text-white/60 hover:text-white"
                 >
-                  로그인
+                  LOGIN
                 </Link>
                 <Link
                   href="/signup"
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-md bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700"
+                  className="inline-block border border-[#CCFF00] px-4 py-2 text-center text-sm font-medium tracking-[0.1em] text-[#CCFF00] hover:bg-[#CCFF00] hover:text-black"
                 >
-                  회원가입
+                  JOIN
                 </Link>
               </>
             )}

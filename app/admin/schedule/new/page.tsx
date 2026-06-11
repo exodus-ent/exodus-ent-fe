@@ -43,7 +43,7 @@ export default function NewSchedulePage() {
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 py-8">
         <div className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-          <Link href="/admin" className="hover:text-indigo-600">
+          <Link href="/admin" className="hover:text-[#CCFF00]">
             스케줄 관리
           </Link>
           <span>/</span>

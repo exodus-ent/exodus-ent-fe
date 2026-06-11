@@ -89,7 +89,7 @@ export default function IdolForm({ idol, onSave, onCancel }: Props) {
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="아이돌 이름"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
         <div>
@@ -98,7 +98,7 @@ export default function IdolForm({ idol, onSave, onCancel }: Props) {
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
             placeholder="그룹명 (선택)"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
         <div className="sm:col-span-2">
@@ -108,7 +108,7 @@ export default function IdolForm({ idol, onSave, onCancel }: Props) {
             onChange={(e) => setDescription(e.target.value)}
             rows={2}
             placeholder="아이돌 소개 (선택)"
-            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
         <div className="sm:col-span-2">
@@ -159,7 +159,7 @@ export default function IdolForm({ idol, onSave, onCancel }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
+          className="rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600] disabled:opacity-60"
         >
           {loading ? '저장 중...' : idol ? '수정 완료' : '등록'}
         </button>

@@ -46,7 +46,7 @@ export default function ScheduleContent({ initialIdol }: Props) {
           {user?.isAdmin && (
             <Link
               href="/admin/schedule/new"
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+              className="rounded-lg bg-[#CCFF00] px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600]"
             >
               + 스케줄 등록
             </Link>

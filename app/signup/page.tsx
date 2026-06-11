@@ -74,7 +74,7 @@ export default function SignupPage() {
           </p>
           <Link
             href="/login"
-            className="inline-block rounded-xl bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700"
+            className="inline-block rounded-xl bg-[#CCFF00] px-6 py-2.5 text-sm font-semibold text-black hover:bg-[#b3e600]"
           >
             로그인으로 이동
           </Link>
@@ -89,7 +89,7 @@ export default function SignupPage() {
         <div className="rounded-2xl bg-white px-8 py-10 shadow-sm border border-gray-200">
           <h1 className="mb-1 text-center text-2xl font-bold text-gray-900">회원가입</h1>
           <p className="mb-8 text-center text-sm text-gray-500">
-            엑소더스<span className="font-semibold text-indigo-600">Ent</span> 계정을 만들어보세요
+            엑소더스<span className="font-semibold text-[#CCFF00]">Ent</span> 계정을 만들어보세요
           </p>
 
           <form onSubmit={handleSignup} className="space-y-4">
@@ -102,7 +102,7 @@ export default function SignupPage() {
                 placeholder="닉네임을 입력하세요"
                 required
                 maxLength={20}
-                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
               />
             </div>
             <div>
@@ -113,7 +113,7 @@ export default function SignupPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@example.com"
                 required
-                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
               />
             </div>
             <div>
@@ -124,7 +124,7 @@ export default function SignupPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="6자 이상"
                 required
-                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
               />
             </div>
             <div>
@@ -138,7 +138,7 @@ export default function SignupPage() {
                 className={`w-full rounded-xl border px-4 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:ring-2 ${
                   confirm && confirm !== password
                     ? 'border-red-400 focus:border-red-400 focus:ring-red-100'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-100'
+                    : 'border-gray-300 focus:border-[#CCFF00] focus:ring-[#CCFF00]/20'
                 }`}
               />
               {confirm && confirm !== password && (
@@ -153,7 +153,7 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-indigo-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
+              className="w-full rounded-xl bg-[#CCFF00] py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600] disabled:opacity-60"
             >
               {loading ? '가입 중...' : '회원가입'}
             </button>
@@ -161,7 +161,7 @@ export default function SignupPage() {
 
           <p className="mt-6 text-center text-sm text-gray-500">
             이미 계정이 있으신가요?{' '}
-            <Link href="/login" className="font-semibold text-indigo-600 hover:underline">
+            <Link href="/login" className="font-semibold text-[#CCFF00] hover:underline">
               로그인
             </Link>
           </p>

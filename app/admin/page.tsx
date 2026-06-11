@@ -133,7 +133,7 @@ export default function AdminPage() {
               <h2 className="text-xl font-semibold text-gray-900">스케줄 관리</h2>
               <Link
                 href="/admin/schedule/new"
-                className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+                className="rounded-lg bg-[#CCFF00] px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600]"
               >
                 + 스케줄 등록
               </Link>
@@ -162,7 +162,7 @@ export default function AdminPage() {
                         <td className="px-5 py-3 font-medium text-gray-900">{s.title}</td>
                         <td className="px-5 py-3 text-gray-600">{s.idol}</td>
                         <td className="px-5 py-3">
-                          <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                          <span className="rounded-full bg-[#CCFF00]/10 px-2 py-0.5 text-xs font-medium text-[#CCFF00]">
                             {s.category}
                           </span>
                         </td>
@@ -204,7 +204,7 @@ export default function AdminPage() {
               {editingIdol === undefined && (
                 <button
                   onClick={() => setEditingIdol(null)}
-                  className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+                  className="rounded-lg bg-[#CCFF00] px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600]"
                 >
                   + 아이돌 등록
                 </button>
@@ -213,7 +213,7 @@ export default function AdminPage() {
 
             {/* 등록/수정 폼 */}
             {editingIdol !== undefined && (
-              <div className="mb-6 rounded-xl border border-indigo-100 bg-white p-6 shadow-sm">
+              <div className="mb-6 rounded-xl border border-[#CCFF00]/20 bg-white p-6 shadow-sm">
                 <h3 className="mb-4 text-base font-semibold text-gray-900">
                   {editingIdol ? '아이돌 수정' : '아이돌 등록'}
                 </h3>
@@ -267,7 +267,7 @@ export default function AdminPage() {
                     {/* 정보 */}
                     <div className="p-3">
                       {idol.group_name && (
-                        <p className="text-xs text-indigo-500">{idol.group_name}</p>
+                        <p className="text-xs text-[#CCFF00]">{idol.group_name}</p>
                       )}
                       <p className="font-semibold text-gray-900">{idol.name}</p>
                       {idol.description && (

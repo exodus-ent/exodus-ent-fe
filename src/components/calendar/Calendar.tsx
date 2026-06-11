@@ -37,7 +37,7 @@ export default function Calendar() {
       {/* 로딩 오버레이 */}
       {isLoading && (
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 rounded-2xl bg-white/80 backdrop-blur-sm">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-indigo-100 border-t-indigo-600" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#CCFF00]/20 border-t-[#CCFF00]" />
           <p className="text-sm text-gray-500">스케줄 불러오는 중...</p>
         </div>
       )}

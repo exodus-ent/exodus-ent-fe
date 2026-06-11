@@ -113,7 +113,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             onChange={set('title')}
             required
             placeholder="스케줄 제목"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
 
@@ -124,7 +124,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             onChange={set('idol')}
             required
             placeholder="아이돌 이름"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
 
@@ -133,7 +133,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
           <select
             value={form.category}
             onChange={set('category')}
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           >
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>
@@ -150,7 +150,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             value={form.date}
             onChange={set('date')}
             required
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
 
@@ -160,7 +160,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             type="time"
             value={form.time}
             onChange={set('time')}
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
 
@@ -170,7 +170,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             value={form.location}
             onChange={set('location')}
             placeholder="공연 장소"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
 
@@ -181,7 +181,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             onChange={set('description')}
             rows={3}
             placeholder="스케줄 설명"
-            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
 
@@ -192,7 +192,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             value={form.detail_url}
             onChange={set('detail_url')}
             placeholder="https://..."
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
           />
         </div>
 
@@ -245,7 +245,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
+          className="rounded-lg bg-[#CCFF00] px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600] disabled:opacity-60"
         >
           {loading ? '저장 중...' : mode === 'new' ? '등록' : '수정 완료'}
         </button>

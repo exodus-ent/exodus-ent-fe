@@ -83,7 +83,7 @@ export default function ScheduleModal() {
             <h2 className="text-lg font-bold leading-snug text-gray-900">
               {selectedSchedule.title}
             </h2>
-            <p className="mt-0.5 text-sm font-medium text-indigo-600">{selectedSchedule.idol}</p>
+            <p className="mt-0.5 text-sm font-medium text-[#CCFF00]">{selectedSchedule.idol}</p>
           </div>
           <button
             onClick={close}
@@ -119,7 +119,7 @@ export default function ScheduleModal() {
                     href={selectedSchedule.detailUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-indigo-600 underline hover:text-indigo-800"
+                    className="text-sm text-[#CCFF00] underline hover:text-[#CCFF00]"
                   >
                     자세히 보기
                   </a>
@@ -141,7 +141,7 @@ export default function ScheduleModal() {
               onClick={toggleBookmark}
               className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 bookmarked
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#CCFF00] text-black'
                   : 'border border-gray-300 text-gray-600 hover:bg-gray-50'
               }`}
             >

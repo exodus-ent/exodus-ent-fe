@@ -49,7 +49,7 @@ export default function FilterBar() {
             onClick={() => toggleCategory(cat)}
             className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
               isCategoryActive(cat)
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#CCFF00] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -67,7 +67,7 @@ export default function FilterBar() {
             onClick={() => toggleIdol(idol)}
             className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
               selectedIdols.includes(idol)
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#CCFF00] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >

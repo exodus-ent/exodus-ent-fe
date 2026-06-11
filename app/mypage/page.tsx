@@ -220,7 +220,7 @@ export default function MypagePage() {
                   onClick={() => setTab(key)}
                   className={`rounded-lg px-4 py-2.5 text-left text-sm font-medium transition-colors ${
                     tab === key
-                      ? 'bg-indigo-600 text-white'
+                      ? 'bg-[#CCFF00] text-black'
                       : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
@@ -295,7 +295,7 @@ export default function MypagePage() {
                           <p className="text-sm font-semibold text-gray-900">
                             {bm.schedules.title}
                           </p>
-                          <p className="mt-0.5 text-xs text-indigo-500">{bm.schedules.idol}</p>
+                          <p className="mt-0.5 text-xs text-[#CCFF00]">{bm.schedules.idol}</p>
                           <p className="mt-0.5 text-xs text-gray-400">
                             {bm.schedules.date}
                             {bm.schedules.time && ` · ${bm.schedules.time}`}
@@ -334,7 +334,7 @@ export default function MypagePage() {
                           className="h-16 w-16 rounded-full object-cover"
                         />
                       ) : (
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-100 text-xl font-bold text-indigo-600">
+                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#CCFF00]/20 text-xl font-bold text-[#CCFF00]">
                           {(user?.nickname ?? '?')[0]}
                         </div>
                       )}
@@ -369,7 +369,7 @@ export default function MypagePage() {
                       value={nickname}
                       onChange={(e) => setNickname(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                      className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
                     />
                   </div>
 
@@ -388,7 +388,7 @@ export default function MypagePage() {
                   <button
                     type="submit"
                     disabled={profileLoading}
-                    className="w-full rounded-xl bg-indigo-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
+                    className="w-full rounded-xl bg-[#CCFF00] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#b3e600] disabled:opacity-60"
                   >
                     {profileLoading ? '저장 중...' : '저장'}
                   </button>

@@ -1,28 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-noto-kr), var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility font-bebas {
+  font-family: var(--font-bebas-neue), 'Arial Black', sans-serif;
+  letter-spacing: 0.03em;
+}
+
+@keyframes zoom-rect {
+  0%   { transform: scale(0.1); opacity: 0; }
+  8%   { opacity: 0.6; }
+  80%  { opacity: 0.25; }
+  100% { transform: scale(4.5); opacity: 0; }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-noto-kr), Arial, Helvetica, sans-serif;
+  font-weight: 300;
 }
 
 input, textarea, select {
@@ -93,8 +99,8 @@ input, textarea, select {
 }
 
 .fc .fc-day-today .fc-daygrid-day-number {
-  background-color: #4f46e5;
-  color: #ffffff;
+  background-color: #CCFF00;
+  color: #000000;
   border-radius: 9999px;
   width: 1.75rem;
   height: 1.75rem;

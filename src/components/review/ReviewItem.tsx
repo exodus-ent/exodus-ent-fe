@@ -31,7 +31,7 @@ export default function ReviewItem({ review, currentUserId, isAdmin, onEdit, onD
     <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-semibold text-indigo-700">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#CCFF00]/20 text-xs font-semibold text-[#CCFF00]">
             {review.nickname[0]}
           </div>
           <div>
@@ -72,7 +72,7 @@ export default function ReviewItem({ review, currentUserId, isAdmin, onEdit, onD
           {isOwner && !isAdmin && (
             <button
               onClick={() => onEdit(review)}
-              className="text-xs font-medium text-indigo-600 hover:underline"
+              className="text-xs font-medium text-[#CCFF00] hover:underline"
             >
               수정
             </button>

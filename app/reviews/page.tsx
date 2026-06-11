@@ -96,7 +96,7 @@ export default function ReviewsPage() {
                 onClick={() => setSort(key)}
                 className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                   sort === key
-                    ? 'bg-indigo-600 text-white shadow-sm'
+                    ? 'bg-[#CCFF00] text-black shadow-sm'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -127,7 +127,7 @@ export default function ReviewsPage() {
                     onClick={() => openSchedule(review)}
                     className="flex w-full items-center gap-2 border-b border-gray-50 px-4 py-2.5 text-left transition-colors hover:bg-gray-50/80"
                   >
-                    <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-600">
+                    <span className="rounded-full bg-[#CCFF00]/10 px-2 py-0.5 text-xs font-medium text-[#CCFF00]">
                       {review.schedules.category}
                     </span>
                     <span className="flex-1 truncate text-xs font-medium text-gray-700">

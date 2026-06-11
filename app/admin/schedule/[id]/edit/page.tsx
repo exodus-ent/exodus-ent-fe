@@ -91,7 +91,7 @@ export default function EditSchedulePage() {
     return (
       <div className="flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center gap-3">
         <p className="text-sm text-gray-500">스케줄을 찾을 수 없습니다.</p>
-        <Link href="/admin" className="text-sm font-medium text-indigo-600 hover:underline">
+        <Link href="/admin" className="text-sm font-medium text-[#CCFF00] hover:underline">
           관리자 페이지로 돌아가기
         </Link>
       </div>
@@ -102,7 +102,7 @@ export default function EditSchedulePage() {
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-2xl px-4 py-8">
         <div className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-          <Link href="/admin" className="hover:text-indigo-600">
+          <Link href="/admin" className="hover:text-[#CCFF00]">
             스케줄 관리
           </Link>
           <span>/</span>

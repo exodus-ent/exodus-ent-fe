@@ -50,7 +50,7 @@ export default function ReviewList({ scheduleId }: Props) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold text-gray-800">
-          후기 <span className="text-indigo-600">{reviews.length}</span>개
+          후기 <span className="text-[#CCFF00]">{reviews.length}</span>개
         </p>
         <div className="flex gap-1 rounded-lg bg-gray-100 p-1">
           {(['latest', 'rating'] as SortKey[]).map((key) => (
@@ -59,7 +59,7 @@ export default function ReviewList({ scheduleId }: Props) {
               onClick={() => setSort(key)}
               className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                 sort === key
-                  ? 'bg-white text-indigo-600 shadow-sm'
+                  ? 'bg-white text-[#CCFF00] shadow-sm'
                   : 'text-gray-500 hover:text-gray-700'
               }`}
             >

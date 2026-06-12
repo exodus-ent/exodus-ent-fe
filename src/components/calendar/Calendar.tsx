@@ -33,12 +33,12 @@ export default function Calendar() {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+    <div className="relative overflow-hidden border border-white/10 bg-[#111]">
       {/* 로딩 오버레이 */}
       {isLoading && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 rounded-2xl bg-white/80 backdrop-blur-sm">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-black/80 backdrop-blur-sm">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#CCFF00]/20 border-t-[#CCFF00]" />
-          <p className="text-sm text-gray-500">스케줄 불러오는 중...</p>
+          <p className="text-sm text-white/50">스케줄 불러오는 중...</p>
         </div>
       )}
 

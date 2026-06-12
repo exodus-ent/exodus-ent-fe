@@ -30,15 +30,15 @@ export default function ReviewItem({ review, currentUserId, isAdmin = false, onE
   const canEdit = isOwner && !isAdmin;
 
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+    <div className="p-4">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#CCFF00]/20 text-xs font-semibold text-[#CCFF00]">
             {review.nickname[0]}
           </div>
           <div>
-            <p className="text-sm font-medium text-gray-900">{review.nickname}</p>
-            <p className="text-xs text-gray-400">{review.created_at.slice(0, 10)}</p>
+            <p className="text-sm font-medium text-white">{review.nickname}</p>
+            <p className="text-xs text-white/40">{review.created_at.slice(0, 10)}</p>
           </div>
         </div>
         <div className="flex shrink-0">
@@ -53,7 +53,7 @@ export default function ReviewItem({ review, currentUserId, isAdmin = false, onE
         </div>
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-gray-700">{review.content}</p>
+      <p className="mt-3 text-sm leading-relaxed text-white/80">{review.content}</p>
 
       {review.images && review.images.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-2">
@@ -70,7 +70,7 @@ export default function ReviewItem({ review, currentUserId, isAdmin = false, onE
       )}
 
       {canDelete && (
-        <div className="mt-3 flex justify-end gap-3 border-t border-gray-50 pt-3">
+        <div className="mt-3 flex justify-end gap-3 border-t border-white/5 pt-3">
           {canEdit && (
             <button
               onClick={() => onEdit(review)}
@@ -81,7 +81,7 @@ export default function ReviewItem({ review, currentUserId, isAdmin = false, onE
           )}
           <button
             onClick={() => onDelete(review.id)}
-            className="text-xs font-medium text-red-500 hover:underline"
+            className="text-xs font-medium text-red-400 hover:underline"
           >
             삭제
           </button>

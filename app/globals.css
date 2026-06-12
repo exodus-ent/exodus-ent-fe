@@ -35,7 +35,7 @@ input, textarea, select {
   color: #111827;
 }
 
-/* FullCalendar 스타일 오버라이드 */
+/* FullCalendar 다크 테마 */
 .fc {
   font-family: inherit;
 }
@@ -43,8 +43,8 @@ input, textarea, select {
 .fc .fc-toolbar {
   position: relative;
   padding: 1rem 1.25rem;
-  background-color: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
+  background-color: #111111;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .fc .fc-toolbar-chunk:nth-child(2) {
@@ -57,51 +57,56 @@ input, textarea, select {
 .fc .fc-toolbar-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #111827;
+  color: #ffffff;
 }
 
 .fc .fc-button {
-  background-color: #ffffff !important;
-  border: 1px solid #d1d5db !important;
-  color: #374151 !important;
+  background-color: #1a1a1a !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  color: rgba(255,255,255,0.7) !important;
   font-size: 0.8125rem !important;
   font-weight: 500 !important;
   padding: 0.375rem 0.75rem !important;
-  border-radius: 0.5rem !important;
+  border-radius: 0.375rem !important;
   box-shadow: none !important;
   transition: background-color 0.15s;
 }
 
 .fc .fc-button:hover {
-  background-color: #f3f4f6 !important;
+  background-color: #222222 !important;
+  color: #ffffff !important;
 }
 
 .fc .fc-button-active,
 .fc .fc-button:focus {
-  background-color: #111827 !important;
-  border-color: #111827 !important;
-  color: #ffffff !important;
+  background-color: #CCFF00 !important;
+  border-color: #CCFF00 !important;
+  color: #000000 !important;
   outline: none !important;
   box-shadow: none !important;
 }
 
 .fc .fc-col-header-cell {
-  background-color: #f9fafb;
+  background-color: #0d0d0d;
   padding: 0.5rem 0;
 }
 
 .fc .fc-col-header-cell-cushion {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #6b7280;
+  color: rgba(255,255,255,0.35);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-decoration: none;
 }
 
+.fc .fc-daygrid-day {
+  background-color: #0a0a0a;
+}
+
 .fc .fc-daygrid-day-number {
   font-size: 0.875rem;
-  color: #374151;
+  color: rgba(255,255,255,0.55);
   padding: 0.375rem 0.5rem;
   text-decoration: none;
 }
@@ -122,11 +127,15 @@ input, textarea, select {
 }
 
 .fc .fc-day-today {
-  background-color: #f8fafc !important;
+  background-color: #141414 !important;
+}
+
+.fc .fc-day-other .fc-daygrid-day-number {
+  color: rgba(255,255,255,0.2);
 }
 
 .fc .fc-event {
-  border-radius: 0.375rem;
+  border-radius: 0.25rem;
   border: none;
   padding: 0.125rem 0.375rem;
   font-size: 0.75rem;
@@ -139,5 +148,9 @@ input, textarea, select {
 
 .fc td,
 .fc th {
-  border-color: #e5e7eb;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+.fc .fc-scrollgrid {
+  border-color: rgba(255,255,255,0.06) !important;
 }

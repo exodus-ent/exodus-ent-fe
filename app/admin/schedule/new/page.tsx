@@ -40,17 +40,17 @@ export default function NewSchedulePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-black">
       <div className="mx-auto max-w-2xl px-4 py-8">
-        <div className="mb-6 flex items-center gap-2 text-sm text-gray-500">
-          <Link href="/admin" className="hover:text-[#CCFF00]">
+        <div className="mb-6 flex items-center gap-2 text-xs text-white/30">
+          <Link href="/admin" className="transition-colors hover:text-[#CCFF00]">
             스케줄 관리
           </Link>
           <span>/</span>
-          <span className="text-gray-800 font-medium">스케줄 등록</span>
+          <span className="text-white/60">스케줄 등록</span>
         </div>
-        <h1 className="mb-6 text-2xl font-bold text-gray-900">스케줄 등록</h1>
-        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <h1 className="font-bebas mb-6 text-3xl tracking-[0.15em] text-white">스케줄 등록</h1>
+        <div className="border border-white/10 bg-[#111] p-6">
           <ScheduleForm mode="new" />
         </div>
       </div>

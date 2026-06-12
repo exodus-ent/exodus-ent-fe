@@ -83,13 +83,13 @@ export default function ReviewsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-black">
       <div className="mx-auto max-w-3xl px-4 py-8">
         {/* 헤더 */}
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">후기</h1>
-            <p className="mt-1 text-sm text-gray-500">팬들이 남긴 생생한 후기를 확인해보세요.</p>
+            <h1 className="font-bebas text-4xl tracking-[0.15em] text-white">REVIEWS</h1>
+            <p className="mt-1 text-sm text-white/40">팬들이 남긴 생생한 후기를 확인해보세요.</p>
           </div>
           <div className="flex items-center gap-3">
             {/* 후기 작성 버튼: 비로그인 또는 일반 유저만 표시, 관리자 숨김 */}
@@ -101,15 +101,15 @@ export default function ReviewsPage() {
                 + 후기 작성
               </button>
             )}
-            <div className="flex gap-1 rounded-lg bg-white border border-gray-200 p-1 shadow-sm">
+            <div className="flex gap-1 border border-white/10 bg-[#111] p-1">
               {(['latest', 'rating'] as SortKey[]).map((key) => (
                 <button
                   key={key}
                   onClick={() => setSort(key)}
-                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
+                  className={`px-3 py-1.5 text-xs font-medium transition-colors ${
                     sort === key
-                      ? 'bg-[#CCFF00] text-black shadow-sm'
-                      : 'text-gray-500 hover:text-gray-700'
+                      ? 'bg-[#CCFF00] text-black'
+                      : 'text-white/40 hover:text-white/70'
                   }`}
                 >
                   {key === 'latest' ? '최신순' : '별점순'}
@@ -123,34 +123,34 @@ export default function ReviewsPage() {
         {loading ? (
           <div className="space-y-3">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-28 animate-pulse rounded-xl bg-gray-200" />
+              <div key={i} className="h-28 animate-pulse bg-white/5" />
             ))}
           </div>
         ) : reviews.length === 0 ? (
-          <div className="rounded-xl border border-gray-100 bg-white p-12 text-center shadow-sm">
-            <p className="text-sm text-gray-400">아직 후기가 없어요. 첫 번째 후기를 남겨보세요!</p>
+          <div className="border border-white/10 bg-[#111] p-12 text-center">
+            <p className="text-sm text-white/40">아직 후기가 없어요. 첫 번째 후기를 남겨보세요!</p>
           </div>
         ) : (
           <div className="space-y-4">
             {reviews.map((review) => (
-              <div key={review.id} className="rounded-xl border border-gray-100 bg-white shadow-sm">
+              <div key={review.id} className="border border-white/10 bg-[#111]">
                 {/* 스케줄 정보 */}
                 {review.schedules && (
                   <button
                     onClick={() => openSchedule(review)}
-                    className="flex w-full items-center gap-2 border-b border-gray-50 px-4 py-2.5 text-left transition-colors hover:bg-gray-50/80"
+                    className="flex w-full items-center gap-2 border-b border-white/5 px-4 py-2.5 text-left transition-colors hover:bg-white/5"
                   >
                     <span className="rounded-full bg-[#CCFF00]/10 px-2 py-0.5 text-xs font-medium text-[#CCFF00]">
                       {review.schedules.category}
                     </span>
-                    <span className="flex-1 truncate text-xs font-medium text-gray-700">
+                    <span className="flex-1 truncate text-xs font-medium text-white/70">
                       {review.schedules.title}
                     </span>
-                    <span className="shrink-0 text-xs text-gray-400">
+                    <span className="shrink-0 text-xs text-white/40">
                       {review.schedules.date}
                     </span>
                     <svg
-                      className="h-3.5 w-3.5 shrink-0 text-gray-400"
+                      className="h-3.5 w-3.5 shrink-0 text-white/30"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"

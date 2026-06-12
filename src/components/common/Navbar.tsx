@@ -10,12 +10,10 @@ const LEFT_LINKS = [
   { label: 'SCHEDULE', href: '/schedule' },
 ];
 
-const RIGHT_LINKS = [
-  { label: 'REVIEW', href: '/reviews' },
-  { label: 'MYPAGE', href: '/mypage' },
-];
+const RIGHT_LINKS_BASE = [{ label: 'REVIEW', href: '/reviews' }];
+const MYPAGE_LINK = { label: 'MYPAGE', href: '/mypage' };
 
-const ALL_LINKS = [...LEFT_LINKS, ...RIGHT_LINKS];
+const ALL_LINKS_BASE = [...LEFT_LINKS, ...RIGHT_LINKS_BASE, MYPAGE_LINK];
 
 function NavLink({ href, label, pathname, onClick }: { href: string; label: string; pathname: string; onClick?: () => void }) {
   const active = pathname === href || (href !== '/' && pathname.startsWith(href));
@@ -36,6 +34,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const RIGHT_LINKS = user?.isAdmin ? RIGHT_LINKS_BASE : [...RIGHT_LINKS_BASE, MYPAGE_LINK];
+  const ALL_LINKS = user?.isAdmin ? [...LEFT_LINKS, ...RIGHT_LINKS_BASE] : ALL_LINKS_BASE;
 
   return (
     <header className="sticky top-0 z-50 w-full bg-black border-b border-white/5">

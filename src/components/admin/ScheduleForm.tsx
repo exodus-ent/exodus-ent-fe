@@ -107,33 +107,33 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="sm:col-span-2">
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">제목 *</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">제목 *</label>
           <input
             value={form.title}
             onChange={set('title')}
             required
             placeholder="스케줄 제목"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           />
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">아이돌 *</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">아이돌 *</label>
           <input
             value={form.idol}
             onChange={set('idol')}
             required
             placeholder="아이돌 이름"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           />
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">카테고리 *</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">카테고리 *</label>
           <select
             value={form.category}
             onChange={set('category')}
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           >
             {CATEGORIES.map((c) => (
               <option key={c} value={c}>
@@ -144,61 +144,61 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">날짜 *</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">날짜 *</label>
           <input
             type="date"
             value={form.date}
             onChange={set('date')}
             required
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           />
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">시간</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">시간</label>
           <input
             type="time"
             value={form.time}
             onChange={set('time')}
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           />
         </div>
 
         <div className="sm:col-span-2">
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">장소</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">장소</label>
           <input
             value={form.location}
             onChange={set('location')}
             placeholder="공연 장소"
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           />
         </div>
 
         <div className="sm:col-span-2">
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">설명</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">설명</label>
           <textarea
             value={form.description}
             onChange={set('description')}
             rows={3}
             placeholder="스케줄 설명"
-            className="w-full resize-none rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full resize-none border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           />
         </div>
 
         <div className="sm:col-span-2">
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">상세 URL</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">상세 URL</label>
           <input
             type="url"
             value={form.detail_url}
             onChange={set('detail_url')}
             placeholder="https://..."
-            className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
           />
         </div>
 
         {/* 썸네일 */}
         <div className="sm:col-span-2">
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">썸네일 이미지</label>
+          <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">썸네일 이미지</label>
           <input
             ref={fileRef}
             type="file"
@@ -214,7 +214,7 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-50"
+              className="border border-white/15 px-4 py-2 text-sm text-white/60 transition-colors hover:border-white/30 hover:text-white"
             >
               이미지 선택
             </button>
@@ -231,14 +231,14 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
       </div>
 
       {error && (
-        <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>
+        <p className="border border-red-500/20 bg-red-500/10 px-3 py-2 text-sm text-red-400">{error}</p>
       )}
 
-      <div className="flex justify-end gap-3 border-t border-gray-100 pt-4">
+      <div className="flex justify-end gap-3 border-t border-white/10 pt-4">
         <button
           type="button"
           onClick={() => router.push('/admin')}
-          className="rounded-lg border border-gray-200 px-5 py-2.5 text-sm text-gray-600 transition-colors hover:bg-gray-50"
+          className="border border-white/15 px-5 py-2.5 text-sm text-white/60 transition-colors hover:text-white"
         >
           취소
         </button>

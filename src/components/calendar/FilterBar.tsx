@@ -22,10 +22,7 @@ export default function FilterBar() {
   }, []);
 
   const toggleCategory = (cat: string) => {
-    if (cat === '전체') {
-      setSelectedCategories([]);
-      return;
-    }
+    if (cat === '전체') { setSelectedCategories([]); return; }
     const next = selectedCategories.includes(cat)
       ? selectedCategories.filter((c) => c !== cat)
       : [...selectedCategories, cat];
@@ -45,18 +42,18 @@ export default function FilterBar() {
   const hasActiveFilters = selectedCategories.length > 0 || selectedIdols.length > 0;
 
   return (
-    <div className="mb-5 space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+    <div className="mb-5 space-y-3 border border-white/10 bg-[#111] p-4">
       {/* 카테고리 */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="w-14 shrink-0 text-xs font-semibold text-gray-500">카테고리</span>
+        <span className="w-14 shrink-0 text-xs font-semibold text-white/40">카테고리</span>
         {CATEGORIES.map((cat) => (
           <button
             key={cat}
             onClick={() => toggleCategory(cat)}
-            className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+            className={`px-3 py-1 text-sm font-medium transition-colors ${
               isCategoryActive(cat)
                 ? 'bg-[#CCFF00] text-black'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-white/5 text-white/60 hover:bg-white/10'
             }`}
           >
             {cat}
@@ -67,15 +64,15 @@ export default function FilterBar() {
       {/* 아이돌 */}
       {idolList.length > 0 && (
         <div className="flex flex-wrap items-center gap-2">
-          <span className="w-14 shrink-0 text-xs font-semibold text-gray-500">아이돌</span>
+          <span className="w-14 shrink-0 text-xs font-semibold text-white/40">아이돌</span>
           {idolList.map((idol) => (
             <button
               key={idol}
               onClick={() => toggleIdol(idol)}
-              className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+              className={`px-3 py-1 text-sm font-medium transition-colors ${
                 selectedIdols.includes(idol)
                   ? 'bg-[#CCFF00] text-black'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-white/5 text-white/60 hover:bg-white/10'
               }`}
             >
               {idol}
@@ -89,7 +86,7 @@ export default function FilterBar() {
         <div className="flex justify-end">
           <button
             onClick={resetFilters}
-            className="text-xs text-gray-400 underline underline-offset-2 hover:text-gray-600"
+            className="text-xs text-white/30 underline underline-offset-2 hover:text-white/60"
           >
             필터 초기화
           </button>

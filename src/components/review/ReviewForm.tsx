@@ -83,9 +83,9 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl border border-[#CCFF00]/20 bg-[#CCFF00]/10 p-4"
+      className="border border-[#CCFF00]/20 bg-[#CCFF00]/5 p-4"
     >
-      <p className="mb-3 text-sm font-semibold text-gray-800">
+      <p className="mb-3 text-sm font-semibold text-white">
         {editingReview ? '후기 수정' : '후기 작성'}
       </p>
 
@@ -107,7 +107,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
             </button>
           );
         })}
-        <span className="ml-1 self-center text-sm text-gray-500">{rating}점</span>
+        <span className="ml-1 self-center text-sm text-white/50">{rating}점</span>
       </div>
 
       <textarea
@@ -116,7 +116,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
         placeholder="후기를 작성해주세요..."
         required
         rows={3}
-        className="w-full resize-none rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-gray-400 focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+        className="w-full resize-none border border-white/15 bg-[#1a1a1a] px-3 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
       />
 
       <div className="mt-2">
@@ -131,7 +131,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs text-gray-500 transition-colors hover:bg-gray-50"
+          className="flex items-center gap-1.5 border border-white/15 bg-[#1a1a1a] px-3 py-1.5 text-xs text-white/50 transition-colors hover:bg-white/10"
         >
           <svg
             className="h-4 w-4"
@@ -178,7 +178,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-lg px-3 py-1.5 text-xs text-gray-500 hover:bg-gray-100"
+            className="px-3 py-1.5 text-xs text-white/40 hover:text-white/70"
           >
             취소
           </button>
@@ -186,7 +186,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
         <button
           type="submit"
           disabled={loading}
-          className="rounded-lg bg-[#CCFF00] px-4 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-[#b3e600] disabled:opacity-60"
+          className="bg-[#CCFF00] px-4 py-1.5 text-xs font-semibold text-black transition-colors hover:bg-[#b3e600] disabled:opacity-60"
         >
           {loading ? '저장 중...' : editingReview ? '수정 완료' : '등록'}
         </button>

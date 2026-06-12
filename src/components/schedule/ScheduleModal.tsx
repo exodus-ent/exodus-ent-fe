@@ -71,23 +71,23 @@ export default function ScheduleModal() {
       onClick={handleBackdropClick}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
     >
-      <div className="relative flex max-h-[90vh] w-full max-w-lg flex-col rounded-2xl bg-white shadow-xl">
+      <div className="relative flex max-h-[90vh] w-full max-w-lg flex-col border border-white/10 bg-[#111] shadow-xl">
         {/* 헤더 */}
-        <div className="flex shrink-0 items-start justify-between border-b border-gray-100 px-6 py-5">
+        <div className="flex shrink-0 items-start justify-between border-b border-white/10 px-6 py-5">
           <div className="flex-1 pr-4">
             <span
               className={`mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${colorClass}`}
             >
               {selectedSchedule.category}
             </span>
-            <h2 className="text-lg font-bold leading-snug text-gray-900">
+            <h2 className="text-lg font-bold leading-snug text-white">
               {selectedSchedule.title}
             </h2>
             <p className="mt-0.5 text-sm font-medium text-[#CCFF00]">{selectedSchedule.idol}</p>
           </div>
           <button
             onClick={close}
-            className="shrink-0 rounded-full p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
+            className="shrink-0 rounded-full p-1.5 text-white/40 hover:bg-white/10 hover:text-white"
             aria-label="닫기"
           >
             <svg
@@ -103,7 +103,7 @@ export default function ScheduleModal() {
         </div>
 
         {/* 본문 (스크롤) */}
-        <div className="flex-1 overflow-y-auto px-6 py-5">
+        <div className="flex-1 overflow-y-auto px-6 py-5 [&::-webkit-scrollbar]:hidden">
           <div className="space-y-3">
             <InfoRow icon="📅" label="일시" value={dateTime || '-'} />
             <InfoRow icon="📍" label="장소" value={selectedSchedule.location ?? '-'} />
@@ -129,13 +129,13 @@ export default function ScheduleModal() {
           </div>
 
           {/* 후기 섹션 */}
-          <div className="mt-6 border-t border-gray-100 pt-6">
+          <div className="mt-6 border-t border-white/10 pt-6">
             <ReviewList scheduleId={selectedSchedule.id} />
           </div>
         </div>
 
         {/* 푸터 */}
-        <div className="flex shrink-0 items-center justify-between border-t border-gray-100 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-t border-white/10 px-6 py-4">
           {user ? (
             <button
               onClick={toggleBookmark}
@@ -149,7 +149,7 @@ export default function ScheduleModal() {
               {bookmarked ? '북마크됨' : '북마크'}
             </button>
           ) : (
-            <p className="text-xs text-gray-400">북마크는 로그인 후 이용하세요.</p>
+            <p className="text-xs text-white/30">북마크는 로그인 후 이용하세요.</p>
           )}
           <div className="flex items-center gap-2">
             {user?.isAdmin && selectedSchedule && (
@@ -157,13 +157,13 @@ export default function ScheduleModal() {
                 <Link
                   href={`/admin/schedule/${selectedSchedule.id}/edit`}
                   onClick={close}
-                  className="rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-gray-50"
+                  className="border border-white/15 px-3 py-1.5 text-xs font-medium text-white/60 transition-colors hover:bg-white/10"
                 >
                   수정
                 </Link>
                 <button
                   onClick={handleDelete}
-                  className="rounded-lg border border-red-100 px-3 py-1.5 text-xs font-medium text-red-500 transition-colors hover:bg-red-50"
+                  className="border border-red-500/20 px-3 py-1.5 text-xs font-medium text-red-400 transition-colors hover:bg-red-500/10"
                 >
                   삭제
                 </button>
@@ -171,7 +171,7 @@ export default function ScheduleModal() {
             )}
             <button
               onClick={close}
-              className="rounded-lg bg-gray-100 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200"
+              className="bg-white/10 px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/15"
             >
               닫기
             </button>
@@ -187,8 +187,8 @@ function InfoRow({ icon, label, value }: { icon: string; label: string; value: s
     <div className="flex items-start gap-3">
       <span className="text-base">{icon}</span>
       <div>
-        <p className="mb-0.5 text-xs text-gray-400">{label}</p>
-        <p className="text-sm text-gray-800">{value}</p>
+        <p className="mb-0.5 text-xs text-white/40">{label}</p>
+        <p className="text-sm text-white/80">{value}</p>
       </div>
     </div>
   );

@@ -206,9 +206,9 @@ export default function MypagePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-black">
       <div className="mx-auto max-w-5xl px-4 py-8">
-        <h1 className="mb-6 text-2xl font-bold text-gray-900">마이페이지</h1>
+        <h1 className="font-bebas mb-6 text-4xl tracking-[0.15em] text-white">MYPAGE</h1>
 
         <div className="flex gap-6">
           {/* 사이드바 */}
@@ -218,10 +218,10 @@ export default function MypagePage() {
                 <button
                   key={key}
                   onClick={() => setTab(key)}
-                  className={`rounded-lg px-4 py-2.5 text-left text-sm font-medium transition-colors ${
+                  className={`px-4 py-2.5 text-left text-sm font-medium transition-colors ${
                     tab === key
                       ? 'bg-[#CCFF00] text-black'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      : 'text-white/50 hover:text-white'
                   }`}
                 >
                   {label}
@@ -235,11 +235,11 @@ export default function MypagePage() {
             {/* 내 후기 */}
             {tab === 'reviews' && (
               <section>
-                <h2 className="mb-4 text-lg font-semibold text-gray-800">내 후기</h2>
+                <h2 className="mb-4 text-sm font-medium tracking-widest text-white/40 uppercase">내 후기</h2>
                 {reviewsLoading ? (
-                  <p className="text-sm text-gray-400">불러오는 중...</p>
+                  <p className="text-sm text-white/40">불러오는 중...</p>
                 ) : reviews.length === 0 ? (
-                  <p className="rounded-xl border border-gray-100 bg-white p-6 text-center text-sm text-gray-400">
+                  <p className="border border-white/10 bg-[#111] p-6 text-center text-sm text-white/30">
                     작성한 후기가 없어요.
                   </p>
                 ) : (
@@ -274,11 +274,11 @@ export default function MypagePage() {
             {/* 북마크 */}
             {tab === 'bookmarks' && (
               <section>
-                <h2 className="mb-4 text-lg font-semibold text-gray-800">북마크한 스케줄</h2>
+                <h2 className="mb-4 text-sm font-medium tracking-widest text-white/40 uppercase">북마크한 스케줄</h2>
                 {bookmarksLoading ? (
-                  <p className="text-sm text-gray-400">불러오는 중...</p>
+                  <p className="text-sm text-white/40">불러오는 중...</p>
                 ) : bookmarks.length === 0 ? (
-                  <p className="rounded-xl border border-gray-100 bg-white p-6 text-center text-sm text-gray-400">
+                  <p className="border border-white/10 bg-[#111] p-6 text-center text-sm text-white/30">
                     북마크한 스케줄이 없어요.
                   </p>
                 ) : (
@@ -286,17 +286,17 @@ export default function MypagePage() {
                     {bookmarks.map((bm) => (
                       <div
                         key={bm.id}
-                        className="flex items-center justify-between rounded-xl border border-gray-100 bg-white px-5 py-4 shadow-sm"
+                        className="flex items-center justify-between border border-white/10 bg-[#111] px-5 py-4"
                       >
                         <button
                           onClick={() => openScheduleModal(bm)}
                           className="flex-1 text-left"
                         >
-                          <p className="text-sm font-semibold text-gray-900">
+                          <p className="text-sm font-semibold text-white">
                             {bm.schedules.title}
                           </p>
                           <p className="mt-0.5 text-xs text-[#CCFF00]">{bm.schedules.idol}</p>
-                          <p className="mt-0.5 text-xs text-gray-400">
+                          <p className="mt-0.5 text-xs text-white/40">
                             {bm.schedules.date}
                             {bm.schedules.time && ` · ${bm.schedules.time}`}
                             {bm.schedules.location && ` · ${bm.schedules.location}`}
@@ -304,7 +304,7 @@ export default function MypagePage() {
                         </button>
                         <button
                           onClick={() => handleRemoveBookmark(bm.schedule_id)}
-                          className="ml-4 shrink-0 rounded-lg border border-gray-200 px-3 py-1.5 text-xs text-gray-500 transition-colors hover:border-red-200 hover:bg-red-50 hover:text-red-500"
+                          className="ml-4 shrink-0 border border-white/15 px-3 py-1.5 text-xs text-white/40 transition-colors hover:border-red-500/30 hover:text-red-400"
                         >
                           삭제
                         </button>
@@ -318,10 +318,10 @@ export default function MypagePage() {
             {/* 프로필 수정 */}
             {tab === 'profile' && (
               <section>
-                <h2 className="mb-4 text-lg font-semibold text-gray-800">프로필 수정</h2>
+                <h2 className="mb-4 text-sm font-medium tracking-widest text-white/40 uppercase">프로필 수정</h2>
                 <form
                   onSubmit={handleProfileSave}
-                  className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm"
+                  className="border border-white/10 bg-[#111] p-6"
                 >
                   {/* 아바타 */}
                   <div className="mb-6 flex items-center gap-4">
@@ -354,7 +354,7 @@ export default function MypagePage() {
                       <button
                         type="button"
                         onClick={() => avatarRef.current?.click()}
-                        className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-600 transition-colors hover:bg-gray-50"
+                        className="border border-white/15 px-3 py-1.5 text-sm text-white/50 transition-colors hover:text-white"
                       >
                         이미지 변경
                       </button>
@@ -363,22 +363,22 @@ export default function MypagePage() {
 
                   {/* 닉네임 */}
                   <div className="mb-5">
-                    <label className="mb-1.5 block text-sm font-medium text-gray-700">닉네임</label>
+                    <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">닉네임</label>
                     <input
                       type="text"
                       value={nickname}
                       onChange={(e) => setNickname(e.target.value)}
                       required
-                      className="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm outline-none transition-colors focus:border-[#CCFF00] focus:ring-2 focus:ring-[#CCFF00]/20"
+                      className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
                     />
                   </div>
 
                   {profileMsg && (
                     <p
-                      className={`mb-4 rounded-lg px-3 py-2 text-sm ${
+                      className={`mb-4 px-3 py-2 text-sm ${
                         profileMsg.includes('저장')
-                          ? 'bg-green-50 text-green-700'
-                          : 'bg-red-50 text-red-600'
+                          ? 'border border-green-500/20 bg-green-500/10 text-green-400'
+                          : 'border border-red-500/20 bg-red-500/10 text-red-400'
                       }`}
                     >
                       {profileMsg}
@@ -388,7 +388,7 @@ export default function MypagePage() {
                   <button
                     type="submit"
                     disabled={profileLoading}
-                    className="w-full rounded-xl bg-[#CCFF00] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#b3e600] disabled:opacity-60"
+                    className="w-full bg-[#CCFF00] py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600] disabled:opacity-60"
                   >
                     {profileLoading ? '저장 중...' : '저장'}
                   </button>

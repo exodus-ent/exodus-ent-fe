@@ -39,10 +39,10 @@ export default function ScheduleContent({ initialIdol }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-black">
       <div className="mx-auto max-w-6xl px-4 py-8">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">스케줄</h1>
+          <h1 className="font-bebas text-4xl tracking-[0.15em] text-white">SCHEDULE</h1>
           {user?.isAdmin && (
             <Link
               href="/admin/schedule/new"

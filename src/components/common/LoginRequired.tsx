@@ -7,8 +7,8 @@ export default function LoginRequired() {
   const pathname = usePathname();
 
   return (
-    <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-sm rounded-2xl border border-gray-200 bg-white px-8 py-10 text-center shadow-sm">
+    <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center bg-black px-4">
+      <div className="w-full max-w-sm border border-white/10 bg-[#111] px-8 py-10 text-center">
         <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#CCFF00]/10">
           <svg
             className="h-8 w-8 text-[#CCFF00]/70"
@@ -24,8 +24,8 @@ export default function LoginRequired() {
             />
           </svg>
         </div>
-        <h2 className="mb-2 text-lg font-bold text-gray-900">로그인이 필요합니다</h2>
-        <p className="mb-7 text-sm text-gray-500">로그인 후 이용해 주세요.</p>
+        <h2 className="mb-2 text-lg font-bold text-white">로그인이 필요합니다</h2>
+        <p className="mb-7 text-sm text-white/40">로그인 후 이용해 주세요.</p>
         <Link
           href={`/login?redirect=${encodeURIComponent(pathname)}`}
           className="block w-full rounded-xl bg-[#CCFF00] py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600]"

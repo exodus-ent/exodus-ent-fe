@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useAuthStore } from '@/store/useAuthStore';
+import { createClient } from '@/lib/supabase';
 
 const LEFT_LINKS = [
   { label: 'ARTISTS', href: '/artists' },
@@ -32,8 +33,15 @@ function NavLink({ href, label, pathname, onClick }: { href: string; label: stri
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { user, logout } = useAuthStore();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogout = async () => {
+    await createClient().auth.signOut();
+    logout();
+    router.push('/');
+  };
 
   const RIGHT_LINKS = user?.isAdmin ? RIGHT_LINKS_BASE : [...RIGHT_LINKS_BASE, MYPAGE_LINK];
   const ALL_LINKS = user?.isAdmin ? [...LEFT_LINKS, ...RIGHT_LINKS_BASE] : ALL_LINKS_BASE;
@@ -70,7 +78,7 @@ export default function Navbar() {
                     <span className="font-medium text-white">{user.nickname}</span>
                   </span>
                   <button
-                    onClick={logout}
+                    onClick={handleLogout}
                     className="text-xs tracking-[0.1em] text-white/40 transition-colors hover:text-white"
                   >
                     LOGOUT
@@ -134,7 +142,7 @@ export default function Navbar() {
                   <span className="font-medium text-white">{user.nickname}</span>
                 </span>
                 <button
-                  onClick={() => { logout(); setMenuOpen(false); }}
+                  onClick={() => { handleLogout(); setMenuOpen(false); }}
                   className="text-left text-sm tracking-[0.1em] text-white/40 hover:text-white"
                 >
                   LOGOUT

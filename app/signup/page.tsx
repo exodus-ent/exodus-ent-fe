@@ -11,11 +11,11 @@ export default function SignupPage() {
   const { setUser } = useAuthStore();
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [done, setDone] = useState(false);
 
   const handleKakaoLogin = async () => {
     const supabase = createClient();
@@ -36,10 +36,27 @@ export default function SignupPage() {
     });
   };
 
+  // 이메일 blur 시 중복 확인
+  const handleEmailBlur = async () => {
+    if (!email) return;
+    const supabase = createClient();
+    const { data } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('email', email)
+      .maybeSingle();
+    if (data) {
+      setEmailError('이미 사용중인 이메일입니다.');
+    } else {
+      setEmailError('');
+    }
+  };
+
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
+    if (emailError) return;
     if (password !== confirm) { setError('비밀번호가 일치하지 않습니다.'); return; }
     if (password.length < 6) { setError('비밀번호는 6자 이상이어야 합니다.'); return; }
 
@@ -53,45 +70,40 @@ export default function SignupPage() {
     });
 
     if (authError) {
-      setError(authError.message);
+      if (
+        authError.message.toLowerCase().includes('already registered') ||
+        (authError as { code?: string }).code === 'user_already_exists'
+      ) {
+        setEmailError('이미 사용중인 이메일입니다.');
+      } else {
+        setError(authError.message);
+      }
       setLoading(false);
       return;
     }
 
-    if (data.session && data.user) {
-      setUser({
-        id: data.user.id,
-        email: data.user.email ?? '',
-        nickname: nickname || (data.user.email?.split('@')[0] ?? '사용자'),
-        isAdmin: false,
-      });
-      router.push('/');
+    // 이메일 확인 없이 즉시 세션 생성된 경우
+    if (data.user) {
+      // 세션이 있으면 바로 로그인 처리
+      if (data.session) {
+        setUser({
+          id: data.user.id,
+          email: data.user.email ?? '',
+          nickname: nickname || (data.user.email?.split('@')[0] ?? '사용자'),
+          isAdmin: false,
+        });
+        router.push('/');
+        return;
+      }
+      // 세션이 없으면 이메일 확인 대기 중 — 로그인 페이지로 유도
+      setError('가입이 완료됐습니다. 로그인해주세요.');
+      setLoading(false);
       return;
     }
 
-    setDone(true);
+    setError('회원가입에 실패했습니다. 다시 시도해주세요.');
     setLoading(false);
   };
-
-  if (done) {
-    return (
-      <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center bg-black px-4">
-        <div className="w-full max-w-sm border border-white/10 bg-[#111] px-8 py-10 text-center">
-          <div className="mb-4 text-4xl">📧</div>
-          <h2 className="mb-2 text-xl font-bold text-white">이메일을 확인해주세요</h2>
-          <p className="mb-6 text-sm text-white/50">
-            <span className="font-medium text-white/80">{email}</span>으로 인증 링크를 보냈습니다.
-          </p>
-          <Link
-            href="/login"
-            className="inline-block bg-[#CCFF00] px-6 py-2.5 text-sm font-semibold text-black hover:bg-[#b3e600]"
-          >
-            로그인으로 이동
-          </Link>
-        </div>
-      </div>
-    );
-  }
 
   const inputClass = "w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]";
   const labelClass = "mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase";
@@ -144,8 +156,18 @@ export default function SignupPage() {
             </div>
             <div>
               <label className={labelClass}>이메일</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                placeholder="email@example.com" required className={inputClass} />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
+                onBlur={handleEmailBlur}
+                placeholder="email@example.com"
+                required
+                className={`${inputClass} ${emailError ? 'border-red-500/40 focus:border-red-500' : ''}`}
+              />
+              {emailError && (
+                <p className="mt-1 text-xs text-red-400">{emailError}</p>
+              )}
             </div>
             <div>
               <label className={labelClass}>비밀번호</label>
@@ -173,7 +195,7 @@ export default function SignupPage() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || !!emailError}
               className="w-full bg-[#CCFF00] py-2.5 text-sm font-semibold text-black transition-colors hover:bg-[#b3e600] disabled:opacity-60"
             >
               {loading ? '가입 중...' : '회원가입'}

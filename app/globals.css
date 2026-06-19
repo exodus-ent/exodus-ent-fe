@@ -32,7 +32,8 @@ body {
 }
 
 input, textarea, select {
-  color: #111827;
+  color: white;
+  caret-color: white;
 }
 
 /* FullCalendar 다크 테마 */

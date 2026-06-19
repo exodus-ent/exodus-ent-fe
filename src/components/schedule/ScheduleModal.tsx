@@ -136,13 +136,13 @@ export default function ScheduleModal() {
 
         {/* 푸터 */}
         <div className="flex shrink-0 items-center justify-between border-t border-white/10 px-6 py-4">
-          {user ? (
+          {user?.isAdmin ? null : user ? (
             <button
               onClick={toggleBookmark}
-              className={`flex items-center gap-1.5 rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+              className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium transition-colors ${
                 bookmarked
                   ? 'bg-[#CCFF00] text-black'
-                  : 'border border-gray-300 text-gray-600 hover:bg-gray-50'
+                  : 'border border-white/15 text-white/50 hover:border-white/30 hover:text-white'
               }`}
             >
               <span>{bookmarked ? '★' : '☆'}</span>

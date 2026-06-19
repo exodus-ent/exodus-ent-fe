@@ -32,17 +32,18 @@ export function useBookmark(scheduleId: string | null) {
     if (!scheduleId || loading) return;
     setLoading(true);
 
+    const next = !bookmarked;
+    setBookmarked(next); // 낙관적 업데이트 — 즉시 UI 반영
+
     const supabase = createClient();
-    if (bookmarked) {
+    if (!next) {
       await supabase
         .from('bookmarks')
         .delete()
         .eq('schedule_id', scheduleId)
         .eq('user_id', user.id);
-      setBookmarked(false);
     } else {
       await supabase.from('bookmarks').insert({ schedule_id: scheduleId, user_id: user.id });
-      setBookmarked(true);
     }
     setLoading(false);
   };

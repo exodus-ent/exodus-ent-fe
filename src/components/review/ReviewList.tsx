@@ -49,18 +49,18 @@ export default function ReviewList({ scheduleId }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-gray-800">
+        <p className="text-sm font-semibold text-white/70">
           후기 <span className="text-[#CCFF00]">{reviews.length}</span>개
         </p>
-        <div className="flex gap-1 rounded-lg bg-gray-100 p-1">
+        <div className="flex gap-1 bg-white/5 p-1">
           {(['latest', 'rating'] as SortKey[]).map((key) => (
             <button
               key={key}
               onClick={() => setSort(key)}
-              className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1 text-xs font-medium transition-colors ${
                 sort === key
-                  ? 'bg-white text-[#CCFF00] shadow-sm'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'bg-[#CCFF00] text-black'
+                  : 'text-white/40 hover:text-white/70'
               }`}
             >
               {key === 'latest' ? '최신순' : '별점순'}
@@ -70,9 +70,9 @@ export default function ReviewList({ scheduleId }: Props) {
       </div>
 
       {loading ? (
-        <p className="py-4 text-center text-sm text-gray-400">불러오는 중...</p>
+        <p className="py-4 text-center text-sm text-white/40">불러오는 중...</p>
       ) : reviews.length === 0 ? (
-        <p className="py-4 text-center text-sm text-gray-400">
+        <p className="py-4 text-center text-sm text-white/40">
           아직 후기가 없어요. 첫 번째 후기를 남겨보세요!
         </p>
       ) : (
@@ -110,7 +110,7 @@ export default function ReviewList({ scheduleId }: Props) {
       )}
 
       {(!user || user.isAdmin) && (
-        <p className="py-2 text-center text-xs text-gray-400">
+        <p className="py-2 text-center text-xs text-white/30">
           {user?.isAdmin ? '관리자는 후기를 작성할 수 없습니다.' : '후기 작성은 로그인 후 이용하세요.'}
         </p>
       )}

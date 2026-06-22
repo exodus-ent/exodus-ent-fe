@@ -39,7 +39,7 @@ export default function ReviewsPage() {
     const supabase = createClient();
     const { data } = await supabase
       .from('reviews')
-      .select('*, review_images(id, url), schedules(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)')
+      .select('*, review_images(id, url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)')
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
 
     setReviews(

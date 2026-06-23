@@ -41,19 +41,29 @@ export default function ReviewsPage() {
     const { data, error } = await supabase
       .from('reviews')
       .select(
-        '*, review_images(id, image_url), profiles(avatar_url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)',
+        '*, review_images(id, image_url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)',
       )
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
 
     if (error) console.error('reviews fetch error:', error);
-    setReviews(
-      (data ?? []).map((r) => ({
-        ...r,
-        avatar_url: (r.profiles as unknown as { avatar_url?: string })?.avatar_url,
-        images: r.review_images as Review['images'],
-        schedules: r.schedules ?? null,
-      })),
-    );
+
+    const reviews = (data ?? []).map((r) => ({
+      ...r,
+      images: r.review_images as Review['images'],
+      schedules: r.schedules ?? null,
+    }));
+
+    if (reviews.length > 0) {
+      const userIds = [...new Set(reviews.map((r) => r.user_id))];
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('id, avatar_url')
+        .in('id', userIds);
+      const avatarMap = new Map(profiles?.map((p) => [p.id, p.avatar_url]) ?? []);
+      reviews.forEach((r) => { r.avatar_url = avatarMap.get(r.user_id) ?? undefined; });
+    }
+
+    setReviews(reviews as ReviewWithSchedule[]);
     setLoading(false);
   }, [sort]);
 

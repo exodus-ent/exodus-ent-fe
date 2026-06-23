@@ -24,17 +24,26 @@ export default function ReviewList({ scheduleId }: Props) {
     const supabase = createClient();
     const { data } = await supabase
       .from('reviews')
-      .select('*, review_images(id, image_url), profiles(avatar_url)')
+      .select('*, review_images(id, image_url)')
       .eq('schedule_id', scheduleId)
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
 
-    setReviews(
-      (data ?? []).map((r) => ({
-        ...r,
-        avatar_url: (r.profiles as unknown as { avatar_url?: string })?.avatar_url,
-        images: r.review_images as Review['images'],
-      })),
-    );
+    const reviews = (data ?? []).map((r) => ({
+      ...r,
+      images: r.review_images as Review['images'],
+    }));
+
+    if (reviews.length > 0) {
+      const userIds = [...new Set(reviews.map((r) => r.user_id))];
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('id, avatar_url')
+        .in('id', userIds);
+      const avatarMap = new Map(profiles?.map((p) => [p.id, p.avatar_url]) ?? []);
+      reviews.forEach((r) => { (r as Review).avatar_url = avatarMap.get(r.user_id) ?? undefined; });
+    }
+
+    setReviews(reviews);
     setLoading(false);
   }, [scheduleId, sort]);
 

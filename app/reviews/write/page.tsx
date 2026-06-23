@@ -65,6 +65,7 @@ export default function WriteReviewPage() {
       .from('schedules')
       .select('id, title, date, category')
       .eq('idol', selectedIdol)
+      .lte('date', new Date().toISOString().split('T')[0])
       .order('date', { ascending: false })
       .then(({ data }) => {
         setSchedules(data ?? []);

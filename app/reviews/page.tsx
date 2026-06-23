@@ -37,10 +37,12 @@ export default function ReviewsPage() {
   const fetchReviews = useCallback(async () => {
     setLoading(true);
     const supabase = createClient();
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('reviews')
       .select('*, review_images(id, url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)')
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
+
+    if (error) console.error('reviews fetch error:', error);
 
     setReviews(
       (data ?? []).map((r) => ({

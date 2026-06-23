@@ -102,7 +102,7 @@ export default function WriteReviewPage() {
           .upload(path, file);
         if (uploadError) throw uploadError;
         const { data: urlData } = supabase.storage.from('review-images').getPublicUrl(path);
-        await supabase.from('review_images').insert({ review_id: data.id, url: urlData.publicUrl });
+        await supabase.from('review_images').insert({ review_id: data.id, image_url: urlData.publicUrl });
       }
 
       router.push('/reviews');

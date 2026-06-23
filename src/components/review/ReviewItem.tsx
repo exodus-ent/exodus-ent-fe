@@ -2,7 +2,7 @@
 
 export interface ReviewImage {
   id: string;
-  url: string;
+  image_url: string;
 }
 
 export interface Review {
@@ -57,7 +57,7 @@ export default function ReviewItem({ review, currentUserId, isAdmin = false, onE
         <div className="mt-3 flex gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={review.images[0].url}
+            src={review.images[0].image_url}
             alt="후기 이미지"
             className="h-24 w-24 shrink-0 rounded-lg object-cover"
           />

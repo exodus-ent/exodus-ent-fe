@@ -24,7 +24,7 @@ export default function ReviewList({ scheduleId }: Props) {
     const supabase = createClient();
     const { data } = await supabase
       .from('reviews')
-      .select('*, review_images(id, url)')
+      .select('*, review_images(id, image_url)')
       .eq('schedule_id', scheduleId)
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
 

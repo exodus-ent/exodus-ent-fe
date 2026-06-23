@@ -66,7 +66,7 @@ export default function ReviewForm({ scheduleId, editingReview, onSubmit, onCanc
           .upload(path, file);
         if (uploadError) throw uploadError;
         const { data: urlData } = supabase.storage.from('review-images').getPublicUrl(path);
-        await supabase.from('review_images').insert({ review_id: reviewId, url: urlData.publicUrl });
+        await supabase.from('review_images').insert({ review_id: reviewId, image_url: urlData.publicUrl });
       }
 
       setContent('');

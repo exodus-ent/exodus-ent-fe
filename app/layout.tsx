@@ -29,6 +29,9 @@ const notoSansKR = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: '엑소더스Ent',
   description: '아티스트 스케줄 · 공연 후기 · 팬 커뮤니티',
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({

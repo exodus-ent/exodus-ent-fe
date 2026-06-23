@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
 
@@ -41,9 +41,18 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(
     defaultValues.thumbnail_url ?? null,
   );
+  const [idols, setIdols] = useState<{ id: string; name: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    createClient()
+      .from('idols')
+      .select('id, name')
+      .order('name')
+      .then(({ data }) => setIdols(data ?? []));
+  }, []);
 
   const set = (key: keyof ScheduleFormValues) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -119,13 +128,19 @@ export default function ScheduleForm({ mode, scheduleId, defaultValues = {} }: P
 
         <div>
           <label className="mb-1.5 block text-xs font-medium tracking-widest text-white/50 uppercase">아이돌 *</label>
-          <input
+          <select
             value={form.idol}
             onChange={set('idol')}
             required
-            placeholder="아이돌 이름"
-            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#CCFF00]"
-          />
+            className="w-full border border-white/15 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white outline-none transition-colors focus:border-[#CCFF00]"
+          >
+            <option value="">아이돌을 선택하세요</option>
+            {idols.map((idol) => (
+              <option key={idol.id} value={idol.name}>
+                {idol.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>

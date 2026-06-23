@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { UserCircle2 } from 'lucide-react';
 import { useAuthStore } from '@/store/useAuthStore';
 import { createClient } from '@/lib/supabase';
 
@@ -74,6 +75,14 @@ export default function Navbar() {
             <div className="ml-4 flex items-center gap-3 border-l border-white/10 pl-4">
               {user ? (
                 <>
+                  <Link href="/mypage" className="shrink-0">
+                    {user.avatarUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={user.avatarUrl} alt={user.nickname} className="h-8 w-8 rounded-full object-cover" />
+                    ) : (
+                      <UserCircle2 className="h-8 w-8 text-white/40" />
+                    )}
+                  </Link>
                   <span className="text-xs text-white/50">
                     <span className="font-medium text-white">{user.nickname}</span>
                   </span>
@@ -138,9 +147,15 @@ export default function Navbar() {
           <div className="mt-6 flex flex-col gap-3 border-t border-white/5 pt-6">
             {user ? (
               <>
-                <span className="text-sm text-white/50">
-                  <span className="font-medium text-white">{user.nickname}</span>
-                </span>
+                <Link href="/mypage" onClick={() => setMenuOpen(false)} className="flex items-center gap-2.5">
+                  {user.avatarUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={user.avatarUrl} alt={user.nickname} className="h-8 w-8 rounded-full object-cover" />
+                  ) : (
+                    <UserCircle2 className="h-8 w-8 text-white/40" />
+                  )}
+                  <span className="text-sm font-medium text-white">{user.nickname}</span>
+                </Link>
                 <button
                   onClick={() => { handleLogout(); setMenuOpen(false); }}
                   className="text-left text-sm tracking-[0.1em] text-white/40 hover:text-white"

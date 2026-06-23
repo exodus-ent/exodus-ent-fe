@@ -41,15 +41,15 @@ export default function ReviewsPage() {
     const { data, error } = await supabase
       .from('reviews')
       .select(
-        '*, review_images(id, image_url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)',
+        '*, review_images(id, image_url), profiles!left(avatar_url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)',
       )
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
 
     if (error) console.error('reviews fetch error:', error);
-    console.log(data);
     setReviews(
       (data ?? []).map((r) => ({
         ...r,
+        avatar_url: (r.profiles as unknown as { avatar_url?: string })?.avatar_url,
         images: r.review_images as Review['images'],
         schedules: r.schedules ?? null,
       })),

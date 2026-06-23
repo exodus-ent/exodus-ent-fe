@@ -1,5 +1,7 @@
 'use client';
 
+import { UserCircle2 } from 'lucide-react';
+
 export interface ReviewImage {
   id: string;
   image_url: string;
@@ -10,6 +12,7 @@ export interface Review {
   schedule_id: string;
   user_id: string;
   nickname: string;
+  avatar_url?: string;
   rating: number;
   content: string;
   created_at: string;
@@ -33,9 +36,12 @@ export default function ReviewItem({ review, currentUserId, isAdmin = false, onE
     <div className="p-4">
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#CCFF00]/20 text-xs font-semibold text-[#CCFF00]">
-            {review.nickname[0]}
-          </div>
+          {review.avatar_url ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={review.avatar_url} alt={review.nickname} className="h-6 w-6 shrink-0 rounded-full object-cover" />
+          ) : (
+            <UserCircle2 className="h-6 w-6 shrink-0 text-white/40" />
+          )}
           <div>
             <p className="text-sm font-medium text-white">{review.nickname}</p>
             <p className="text-xs text-white/40">{review.created_at.slice(0, 10)}</p>

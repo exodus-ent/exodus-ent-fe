@@ -24,12 +24,16 @@ export default function ReviewList({ scheduleId }: Props) {
     const supabase = createClient();
     const { data } = await supabase
       .from('reviews')
-      .select('*, review_images(id, image_url)')
+      .select('*, review_images(id, image_url), profiles!left(avatar_url)')
       .eq('schedule_id', scheduleId)
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
 
     setReviews(
-      (data ?? []).map((r) => ({ ...r, images: r.review_images as Review['images'] })),
+      (data ?? []).map((r) => ({
+        ...r,
+        avatar_url: (r.profiles as unknown as { avatar_url?: string })?.avatar_url,
+        images: r.review_images as Review['images'],
+      })),
     );
     setLoading(false);
   }, [scheduleId, sort]);

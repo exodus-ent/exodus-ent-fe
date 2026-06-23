@@ -39,11 +39,13 @@ export default function ReviewsPage() {
     const supabase = createClient();
     const { data, error } = await supabase
       .from('reviews')
-      .select('*, review_images(id, url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)')
+      .select(
+        '*, review_images(id, url), schedules!left(id, title, idol, category, date, time, location, description, thumbnail_url, detail_url)',
+      )
       .order(sort === 'latest' ? 'created_at' : 'rating', { ascending: false });
 
     if (error) console.error('reviews fetch error:', error);
-
+    console.log(data);
     setReviews(
       (data ?? []).map((r) => ({
         ...r,
@@ -90,14 +92,20 @@ export default function ReviewsPage() {
         {/* 헤더 */}
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h1 className="font-bebas text-4xl tracking-[0.15em] text-white">REVIEWS</h1>
-            <p className="mt-1 text-sm text-white/40">팬들이 남긴 생생한 후기를 확인해보세요.</p>
+            <h1 className="font-bebas text-4xl tracking-[0.15em] text-white">
+              REVIEWS
+            </h1>
+            <p className="mt-1 text-sm text-white/40">
+              팬들이 남긴 생생한 후기를 확인해보세요.
+            </p>
           </div>
           <div className="flex items-center gap-3">
             {/* 후기 작성 버튼: 비로그인 또는 일반 유저만 표시, 관리자 숨김 */}
             {!authLoading && !user?.isAdmin && (
               <button
-                onClick={() => user ? router.push('/reviews/write') : router.push('/login')}
+                onClick={() =>
+                  user ? router.push('/reviews/write') : router.push('/login')
+                }
                 className="rounded-lg bg-[#CCFF00] px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-[#b3e600]"
               >
                 + 후기 작성
@@ -130,7 +138,9 @@ export default function ReviewsPage() {
           </div>
         ) : reviews.length === 0 ? (
           <div className="border border-white/10 bg-[#111] p-12 text-center">
-            <p className="text-sm text-white/40">아직 후기가 없어요. 첫 번째 후기를 남겨보세요!</p>
+            <p className="text-sm text-white/40">
+              아직 후기가 없어요. 첫 번째 후기를 남겨보세요!
+            </p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -158,7 +168,11 @@ export default function ReviewsPage() {
                       stroke="currentColor"
                       strokeWidth={2}
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
                     </svg>
                   </button>
                 )}
@@ -189,7 +203,6 @@ export default function ReviewsPage() {
             ))}
           </div>
         )}
-
       </div>
     </div>
   );

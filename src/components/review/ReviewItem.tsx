@@ -53,20 +53,18 @@ export default function ReviewItem({ review, currentUserId, isAdmin = false, onE
         </div>
       </div>
 
-      <p className="mt-3 text-sm leading-relaxed text-white/80">{review.content}</p>
-
-      {review.images && review.images.length > 0 && (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {review.images.map((img) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={img.id}
-              src={img.url}
-              alt="후기 이미지"
-              className="h-20 w-20 rounded-lg object-cover"
-            />
-          ))}
+      {review.images && review.images.length > 0 ? (
+        <div className="mt-3 flex gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={review.images[0].url}
+            alt="후기 이미지"
+            className="h-24 w-24 shrink-0 rounded-lg object-cover"
+          />
+          <p className="text-sm leading-relaxed text-white/80">{review.content}</p>
         </div>
+      ) : (
+        <p className="mt-3 text-sm leading-relaxed text-white/80">{review.content}</p>
       )}
 
       {canDelete && (

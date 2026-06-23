@@ -31,9 +31,19 @@ export default function ReviewsPage() {
   const router = useRouter();
   const { setSelectedSchedule, setIsModalOpen } = useScheduleStore();
   const [reviews, setReviews] = useState<ReviewWithSchedule[]>([]);
+  const [idols, setIdols] = useState<string[]>([]);
+  const [selectedIdol, setSelectedIdol] = useState('');
   const [sort, setSort] = useState<SortKey>('latest');
   const [loading, setLoading] = useState(true);
   const [editingReview, setEditingReview] = useState<Review | null>(null);
+
+  useEffect(() => {
+    createClient()
+      .from('idols')
+      .select('name')
+      .order('name')
+      .then(({ data }) => setIdols((data ?? []).map((d) => d.name)));
+  }, []);
 
   const fetchReviews = useCallback(async () => {
     setLoading(true);
@@ -78,6 +88,10 @@ export default function ReviewsPage() {
     await supabase.from('reviews').delete().eq('id', id);
     await fetchReviews();
   };
+
+  const filteredReviews = selectedIdol
+    ? reviews.filter((r) => r.schedules?.idol === selectedIdol)
+    : reviews;
 
   const openSchedule = (review: ReviewWithSchedule) => {
     const s = review.schedules;
@@ -140,6 +154,35 @@ export default function ReviewsPage() {
           </div>
         </div>
 
+        {/* 아이돌 필터 */}
+        {idols.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-2">
+            <button
+              onClick={() => setSelectedIdol('')}
+              className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+                selectedIdol === ''
+                  ? 'bg-[#CCFF00] text-black'
+                  : 'border border-white/10 text-white/50 hover:text-white/80'
+              }`}
+            >
+              전체
+            </button>
+            {idols.map((idol) => (
+              <button
+                key={idol}
+                onClick={() => setSelectedIdol(idol)}
+                className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+                  selectedIdol === idol
+                    ? 'bg-[#CCFF00] text-black'
+                    : 'border border-white/10 text-white/50 hover:text-white/80'
+                }`}
+              >
+                {idol}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* 목록 */}
         {loading ? (
           <div className="space-y-3">
@@ -147,15 +190,15 @@ export default function ReviewsPage() {
               <div key={i} className="h-28 animate-pulse bg-white/5" />
             ))}
           </div>
-        ) : reviews.length === 0 ? (
+        ) : filteredReviews.length === 0 ? (
           <div className="border border-white/10 bg-[#111] p-12 text-center">
             <p className="text-sm text-white/40">
-              아직 후기가 없어요. 첫 번째 후기를 남겨보세요!
+              {selectedIdol ? '해당 아이돌의 후기가 없습니다.' : '아직 후기가 없어요. 첫 번째 후기를 남겨보세요!'}
             </p>
           </div>
         ) : (
           <div className="space-y-4">
-            {reviews.map((review) => (
+            {filteredReviews.map((review) => (
               <div key={review.id} className="border border-white/10 bg-[#111]">
                 {/* 스케줄 정보 */}
                 {review.schedules && (

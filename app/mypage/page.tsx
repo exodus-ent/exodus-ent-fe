@@ -73,7 +73,7 @@ export default function MypagePage() {
     const supabase = createClient();
     const { data } = await supabase
       .from('reviews')
-      .select('*, review_images(id, image_url), profiles!left(avatar_url)')
+      .select('*, review_images(id, image_url), profiles(avatar_url)')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false });
     setReviews((data ?? []).map((r) => ({

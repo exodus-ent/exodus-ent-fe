@@ -48,13 +48,13 @@
 
 | 후기 목록 | 후기 등록 | 후기 삭제 |
 |:---:|:---:|:---:|
-| ![후기 목록](https://github.com/user-attachments/assets/98f6d79a-8d62-4780-9a59-a0c385e158a3) | ![후기 등록](https://github.com/user-attachments/assets/30aedf78-f8b4-4e87-98b6-7d6d6ac968cb) | ![후기 삭제](https://github.com/user-attachments/assets/c6b0c405-6b94-4fce-87f3-75e76bff061e) |
+| ![후기 목록](https://github.com/user-attachments/assets/98f6d79a-8d62-4780-9a59-a0c385e158a3) | ![후기 등록](https://github.com/user-attachments/assets/dded95a5-f0f2-4831-b2a9-e6b2b0afe682) | ![후기 삭제](https://github.com/user-attachments/assets/3cdd96ca-a469-4bba-9c31-40c9b444409e) |
 
 ### 👤 마이페이지
 
 | 내 후기 조회 | 북마크 | 프로필 수정 |
 |:---:|:---:|:---:|
-| ![내 후기 조회](https://github.com/user-attachments/assets/57de22a8-8bf0-481c-b014-b8abb73b7dc3) | ![북마크](https://github.com/user-attachments/assets/f3772b23-125b-499f-912b-0be5e221f502) | ![프로필 수정](https://github.com/user-attachments/assets/ceb539f4-b73b-46a1-85ba-ec5ef1b85dd0) |
+| ![내 후기 조회](https://github.com/user-attachments/assets/57de22a8-8bf0-481c-b014-b8abb73b7dc3) | ![북마크](https://github.com/user-attachments/assets/07655fa2-f03d-48f8-8571-7ef90682e8b4) | ![프로필 수정](https://github.com/user-attachments/assets/f8c30f4a-3329-4e7e-a37b-0b8de7222cbd) |
 
 ### 🔐 인증
 

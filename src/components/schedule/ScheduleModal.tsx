@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useScheduleStore } from '@/store/useScheduleStore';
+import { getIdolColor } from '@/lib/idolColor';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useBookmark } from '@/hooks/useBookmark';
 import { createClient } from '@/lib/supabase';
@@ -83,7 +84,7 @@ export default function ScheduleModal() {
             <h2 className="text-lg font-bold leading-snug text-white">
               {selectedSchedule.title}
             </h2>
-            <p className="mt-0.5 text-sm font-medium text-[#CCFF00]">{selectedSchedule.idol}</p>
+            <p className="mt-0.5 text-sm font-medium" style={{ color: getIdolColor(selectedSchedule.idol) }}>{selectedSchedule.idol}</p>
           </div>
           <button
             onClick={close}

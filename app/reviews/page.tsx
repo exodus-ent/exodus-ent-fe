@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
+import { getIdolColor } from '@/lib/idolColor';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useScheduleStore } from '@/store/useScheduleStore';
 import ReviewItem, { type Review } from '@/components/review/ReviewItem';
@@ -152,7 +153,16 @@ export default function ReviewsPage() {
                     onClick={() => openSchedule(review)}
                     className="flex w-full items-center gap-2 border-b border-white/5 px-4 py-2.5 text-left transition-colors hover:bg-white/5"
                   >
-                    <span className="rounded-full bg-[#CCFF00]/10 px-2 py-0.5 text-xs font-medium text-[#CCFF00]">
+                    <span
+                      className="rounded-full px-2 py-0.5 text-xs font-medium"
+                      style={{
+                        backgroundColor: `${getIdolColor(review.schedules.idol)}20`,
+                        color: getIdolColor(review.schedules.idol),
+                      }}
+                    >
+                      {review.schedules.idol}
+                    </span>
+                    <span className="rounded-full bg-white/10 px-2 py-0.5 text-xs font-medium text-white/60">
                       {review.schedules.category}
                     </span>
                     <span className="flex-1 truncate text-xs font-medium text-white/70">

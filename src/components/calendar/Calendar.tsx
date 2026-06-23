@@ -5,14 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import koLocale from '@fullcalendar/core/locales/ko';
 import { useScheduleStore } from '@/store/useScheduleStore';
-
-const CATEGORY_COLOR: Record<string, string> = {
-  방송: '#3b82f6',
-  콘서트: '#8b5cf6',
-  팬싸인회: '#ec4899',
-  발매: '#10b981',
-  팬미팅: '#f59e0b',
-};
+import { getIdolColor } from '@/lib/idolColor';
 
 export default function Calendar() {
   const { schedules, isLoading, setSelectedSchedule, setIsModalOpen } = useScheduleStore();
@@ -21,7 +14,7 @@ export default function Calendar() {
     id: schedule.id,
     title: schedule.title,
     date: schedule.date,
-    backgroundColor: CATEGORY_COLOR[schedule.category] ?? '#6366f1',
+    backgroundColor: getIdolColor(schedule.idol),
     borderColor: 'transparent',
     extendedProps: { ...schedule },
   }));
